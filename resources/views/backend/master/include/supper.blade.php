@@ -3,8 +3,8 @@
         <!-- Aplication Brand -->
         <div class="app-brand">
             <a href="{{url('/')}}">
-                <img src="{{asset('backend/images/logo.png')}}" alt="Mono">
-                <span class="brand-name">SMARTTHINK</span>
+                <img src="{{asset('backend/images/logo_1.png')}}" alt="Mono">
+                <span class="brand-name"> POST OFFICE</span>
             </a>
         </div>
         <!-- begin sidebar scrollbar -->
@@ -38,7 +38,14 @@
                     <i class="mdi mdi-chart-line"></i>
                     <span class="nav-text">Brta booking status</span>
                     </a>
-                </li>   
+                </li>
+                
+                <li>
+                    <a class="sidenav-item-link" href="{{Route('role_add.index')}}">
+                    <i class="mdi mdi-chart-line"></i>
+                    <span class="nav-text">Role Management</span>
+                    </a>
+                </li> 
                 <!-- <li  class="has-sub" >
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#buttons"
                         aria-expanded="false" aria-controls="buttons">

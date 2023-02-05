@@ -21,7 +21,7 @@
                     <td scope="row">{{ ++$key }}</td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
-                    <td>{{$user->roles}}</td>
+                    <td>{{$user->role}}</td>
                     <th class="text-center">
                         <a href="#">
                         <i class="mdi mdi-open-in-new"></i>

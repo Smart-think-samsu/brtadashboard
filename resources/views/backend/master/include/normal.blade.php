@@ -3,8 +3,8 @@
         <!-- Aplication Brand -->
         <div class="app-brand">
             <a href="{{url('/')}}">
-                <img src="{{asset('backend/images/logo.png')}}" alt="Mono">
-                <span class="brand-name">SMARTTHINK</span>
+                <img src="{{asset('backend/images/logo_1.png')}}" alt="Mono">
+                <span class="brand-name">POST OFFICE</span>
             </a>
         </div>
         <!-- begin sidebar scrollbar -->

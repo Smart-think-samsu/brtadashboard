@@ -3,9 +3,7 @@
 @section('content')
 
 <div class="content">
-  <div class="container">
-  <div class="card">
-            <div class="card-header">
+  <div class="container" style="margin-top:10px;">
     @if(session('success'))
         <div class="alert alert-success">
             <p>{{session('success')}}</p>
@@ -14,7 +12,8 @@
 
 
     <!-- <table border="0" cellspacing="5" cellpadding="5">
-        <tbody><tr>
+        <tbody>
+        <tr>
             <td>Start date:</td>
             <td><input type="text" id="min" name="min"></td> <span style="margin-left:5px;"></span>
             <td>End date:</td>
@@ -24,33 +23,30 @@
             <td>Maximum date:</td>
             <td><input type="text" id="max" name="max"></td>
         </tr>
-    </tbody></table>
-    <br> -->
+        </tbody>
+    </table> -->
+    <a class="btn btn-primary" href="{{Route('role_add.create')}}" type="submit">New Role</a>
+    <br>
+    <br>
     <table id="example" class="display nowrap" style="width:100%">
         <thead>
             <tr>
                 <th>SI</th>
-                <th>id</th>
-                <th>DrivingLicenseNo</th>
-                <th>Name</th>
-                <th>FatherName</th>
-                <th>barcode</th>
-                <th>booking status</th>
-                
+                <th>Role</th>
+                <th>Permissions</th>
+                <th>Action</th>
+                <!-- <th>Time</th> -->
+                <!-- <th>Action</th> -->
             </tr>
         </thead>
-        <tbody>
-          @foreach($bookinginfos as $k => $bookinginfo)
+        <tbody>          
             <tr>
-                <td>{{++$k}}</td>
-                <td>{{$bookinginfo->id}}</td>
-                <td>{{$bookinginfo->drivingLicenseNo}}</td>
-                <td>{{$bookinginfo->name}}</td>
-                <td>{{$bookinginfo->fatherName}}</td>            
-                <td>{{$bookinginfo->barcode}}</td>             
-                <td>{{$bookinginfo->booking_status}}</td>             
-            </tr> 
-          @endforeach           
+                <td>01</td>
+                <td>milon</td>
+                <td>milon</td>
+                <td>action</td>
+                <!-- <td>jjjj</td> -->
+            </tr>      
         </tbody>
         <!-- <tfoot>
             <tr>
@@ -70,8 +66,6 @@
 
 
   </div>
-</div>
-</div>
 </div>
     
 @endsection

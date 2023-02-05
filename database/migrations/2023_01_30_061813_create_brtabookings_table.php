@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('brtabookings', function (Blueprint $table) {
             $table->id();
             $table->string('user_id')->nullable();
+            $table->string('insurance_id')->nullable();
             $table->string('drivingLicenseNo')->nullable();
             $table->string('brtaReferenceNo')->nullable();
             $table->string('name')->nullable();

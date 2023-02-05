@@ -44,18 +44,18 @@
                             <div class="app-brand w-100 d-flex justify-content-center border-bottom-0">
                                 <a class="w-auto pl-0" href="/index.html">
                                 <img src="{{asset('backend/images/logo.png')}}" alt="Mono">
-                                <span class="brand-name text-dark">MONO</span>
+                                <!-- <span class="brand-name text-dark">POST OFFICE</span> -->
                                 </a>
                             </div>
                         </div>
                         <div class="card-body px-5 pb-5 pt-0">
 
-                        <h4 class="text-dark mb-6 text-center">Sign in for free</h4>
+                        <h4 class="text-dark mb-6 text-center">Bangladesh Post Office</h4>
                         @if(session('success'))
                             <div class="alert alert-danger">
                                 <p>{{session('success')}}</p>
                             </div>
-                        @endif
+                        @endif
                         <form method="POST" action="{{ route('login.post') }}">
                             @csrf
                             <div class="row">
@@ -88,9 +88,9 @@
 
                                 <button type="submit" class="btn btn-primary btn-pill mb-4">Sign In</button>
 
-                                <p>Don't have an account yet ?
+                                <!-- <p>Don't have an account yet ?
                                 <a class="text-blue" href="{{ route('admin.register') }}">Sign Up</a>
-                                </p>
+                                </p> -->
                             </div>
                             </div>
                         </form>

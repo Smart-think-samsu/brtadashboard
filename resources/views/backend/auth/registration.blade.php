@@ -55,17 +55,17 @@
                     <div class="app-brand w-100 d-flex justify-content-center border-bottom-0">
                       <a class="w-auto pl-0" href="/index.html">
                         <img src="{{asset('backend/images/logo.png')}}" alt="Mono">
-                        <span class="brand-name text-dark">MONO</span>
+                        <!-- <span class="brand-name text-dark">MONO</span> -->
                       </a>
                     </div>
                   </div>
                   <div class="card-body px-5 pb-5 pt-0">
                     <h4 class="text-dark text-center mb-5">Sign Up</h4>
                     @if(session('success'))
-                            <div class="alert alert-danger">
-                                <p>{{session('success')}}</p>
-                            </div>
-                        @endif
+                      <div class="alert alert-danger">
+                        <p>{{session('success')}}</p>
+                      </div>
+                    @endif
                     <form action="{{Route('admin.register.post')}}" method="post">
                       @csrf
                       <div class="row">

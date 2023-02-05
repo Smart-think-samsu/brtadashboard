@@ -16,17 +16,17 @@ class RoleMiddleware
      */
     public function handle($request, Closure $next, $role, $permission = null)
     {  
-        
+        //dd($role);        
         //dd($request->user()->hasRole($role));
 
         if(!$request->user()->hasRole($role)) {
              abort(404);
         }
-
+        //dd($role);
         if($permission !== null && !$request->user()->can($permission)) {
               abort(404);
         }
-        //dd($permission);
+        //dd($role);
         return $next($request);
     }
 }

@@ -25,3 +25,5 @@ Route::post('/brtabookingsubmit',[BrtabookingController::class, 'brtabookinglice
 Route::get('/brtabookinglicencecheck',[BrtabookingController::class, 'bookingcount']);
 Route::get('/brtabookinglicences',[BrtabookingController::class, 'show']);
 Route::post('/brtagetbookingdailydata',[BrtabookingController::class, 'bookingdailydata']);
+
+Route::delete('/brtaboolingdelete/{id}', [BrtabookingController::class,'destroy']);

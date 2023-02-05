@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Brtabookings;
 use App\Models\Brtastatus;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
+
 class BrtabookingController extends Controller
 {
     /**
@@ -66,7 +68,6 @@ class BrtabookingController extends Controller
      */
     public function licencestore(Request $request)
     {
-        //return $request;
 
         $brtabookings = Brtabookings::where('drivingLicenseNo', $request->drivingLicenseNo)->where('user_id', $request->user_id)->first();      
         //return $brtabookings;
@@ -75,6 +76,7 @@ class BrtabookingController extends Controller
                         "status_code"=>"200",
                         "status"=>"Success", 
                         "user_id"=>$brtabookings["user_id"],
+                        "insurance_id"=>$brtabookings["insurance_id"],
                         "drivingLicenseNo"=>$brtabookings["drivingLicenseNo"],
                         "brtaReferenceNo"=>$brtabookings["brtaReferenceNo"],
                         "name"=>$brtabookings["name"],
@@ -106,49 +108,56 @@ class BrtabookingController extends Controller
             );
         }
       
-    }
-
-    
+    } 
 
 
 
     public function store(Request $request)
-    {      
-
+    {   
+        $date = Carbon::now()->format('d');
+        $insurance_id = $date.rand(1000, 9999); 
         $brtabookchack = Brtabookings::where('drivingLicenseNo', $request->drivingLicenseNo)->first();
+        $insurance_id_check = Brtabookings::where('insurance_id', $insurance_id)->first();
+        
+        if(!$insurance_id_check){
+            if(!$brtabookchack){    
 
-        if(!$brtabookchack){
-            $brtabookings = new Brtabookings();
-            $brtabookings->user_id = $request->input('user_id');
-            $brtabookings->drivingLicenseNo = $request->input('drivingLicenseNo');
-            $brtabookings->brtaReferenceNo = $request->input('brtaReferenceNo');
-            $brtabookings->name = $request->input('name');
-            $brtabookings->fatherName = $request->input('fatherName');
-            $brtabookings->mobileNo = $request->input('mobileNo');
-            $brtabookings->houseOrVillage = $request->input('houseOrVillage');
-            $brtabookings->road = $request->input('road');
-            $brtabookings->postCode = $request->input('postCode');
-            $brtabookings->thana = $request->input('thana');
-            $brtabookings->district = $request->input('district');
-            $brtabookings->division = $request->input('division');
-            $brtabookings->barcode = $request->input('barcode');
-            $brtabookings->booking_status = 'Pending';
-    
-            // $brtabookings->deliveryAddress =json_encode($request->deliveryAddress);
-    
-            $brtabookings->save();
-            return $response = array(
-                "status_code"=>"200",
-                "status"=>"Success"
-            
-            );
+                $brtabookings = new Brtabookings();
+                $brtabookings->user_id = $request->input('user_id');    
+                $brtabookings->insurance_id = $insurance_id;                
+                $brtabookings->drivingLicenseNo = $request->input('drivingLicenseNo');
+                $brtabookings->brtaReferenceNo = $request->input('brtaReferenceNo');
+                $brtabookings->name = $request->input('name');
+                $brtabookings->fatherName = $request->input('fatherName');
+                $brtabookings->mobileNo = $request->input('mobileNo');
+                $brtabookings->houseOrVillage = $request->input('houseOrVillage');
+                $brtabookings->road = $request->input('road');
+                $brtabookings->postCode = $request->input('postCode');
+                $brtabookings->thana = $request->input('thana');
+                $brtabookings->district = $request->input('district');
+                $brtabookings->division = $request->input('division');
+                $brtabookings->barcode = $request->input('barcode');
+                $brtabookings->booking_status = 'Pending';        
+                // $brtabookings->deliveryAddress =json_encode($request->deliveryAddress);        
+                $brtabookings->save();
+                $created_at = Brtabookings::where('insurance_id', $insurance_id)->first();
+                return $response = array(
+                    
+                    "status_code"=>"200",
+                    "status"=>"Success",
+                    "insurance_id"=>$insurance_id,               
+                    "created_at"=>$created_at->created_at              
+                                  
+                );
+            }else{
+                return $response = array(
+                    "status_code"=>"500",
+                    "status"=>"Item already exist"                
+                );
+            }            
         }else{
-            return $response = array(
-                "status_code"=>"500",
-                "status"=>"Item already exist"
-            
-            );
-        }
+            return 'Please try again Something went wrong! ';
+        }     
 
         
 
@@ -158,11 +167,41 @@ class BrtabookingController extends Controller
 
     public function brtabookinglicencestore(Request $request)
     {    
-        $sample = Brtabookings::where('barcode', $request->item_id)->update($request->all()); 
-        return $response = array(
-            "status_code"=>"200",
-            "status"=>"Success"        
-        );
+        
+
+        Brtabookings::where('barcode', $request->item_id)->where('user_id',$request->user_id)->update([
+            'item_id'=>$request->item_id,
+            'total_charge'=>$request->total_charge,
+            'service_type'=>$request->service_type,
+            'vas_type'=>$request->vas_type,
+            'price'=>$request->price,
+            'insured'=>$request->insured,
+            'booking_status'=>$request->booking_status,        
+        ]);
+
+        $bookingcount = Brtabookings::count();
+        $sum = Brtastatus::sum('total_process');
+        $stocklicence = $sum - $bookingcount;
+        
+        if($stocklicence > 0){
+            return $response = array(
+                "status_code"=>"200",
+                "data"=>"$stocklicence"
+            
+            );
+            
+        }else{
+            return $response = array(
+                "status_code"=>"200",
+                "data"=>"$stocklicence"
+            
+            );
+        }
+
+        // return $response = array(
+        //     "status_code"=>"200",
+        //     "status"=>"Success"        
+        // );
                 
     }
     
@@ -226,6 +265,7 @@ class BrtabookingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Brtabookings::destroy($id);
+        return "Delete Successfully";
     }
 }

@@ -3,6 +3,7 @@ use App\Http\Controllers\Back\LoginController;
 use App\Http\Controllers\Back\AdminController;
 use App\Http\Controllers\Back\BrtaController;
 use App\Http\Controllers\Back\BrtabookingController;
+use App\Http\Controllers\Back\RoleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Auth\AuthController;
@@ -57,17 +58,14 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 
 Route::group(['middleware' => ['auth']], function() {   
     Route::resource('adminuser', AdminController::class); 
-    Route::get('/roles', [PermissionController::class,'Permission']);
+    // Route::get('/roles', [PermissionController::class,'Permission']);
     Route::resource('brta_status', BrtaController::class); 
     Route::resource('brta_booking_status', BrtabookingController::class); 
 
 });
+Route::group(['middleware' => ['role:admin']], function() {
 
-
-
-
-
-Route::group(['middleware' => 'role:admin'], function() {
+    Route::resource('role_add', RoleController::class);
 
     Route::get('/user', function() {
         //return 'Welcome...!!';
