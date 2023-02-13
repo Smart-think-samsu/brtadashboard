@@ -13,7 +13,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Mono - Responsive Admin & Dashboard Template</title>
+  <title>Bangladesh Post Office</title>
 
   <!-- GOOGLE FONTS -->
   <link href="{{asset('backend/https://fonts.googleapis.com/css?family=Karla:400,700|Roboto')}}" rel="stylesheet">
@@ -36,6 +36,9 @@
   <link id="main-css-href" rel="stylesheet" href="{{asset('backend/css/style.css')}}" />
   <!-- FAVICON -->
   <link href="{{asset('backend/images/favicon.png')}}" rel="shortcut icon" />
+  <!-- icon libary milon -->
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
 
 
 
@@ -407,7 +410,7 @@
         <footer class="footer mt-auto">
           <div class="copyright bg-white">
             <p>
-              &copy; <span id="copy-year"></span> Copyright Mono Dashboard Bootstrap Template by <a class="text-primary" href="http://www.iamabdus.com/" target="_blank" >Abdus</a>.
+              &copy; <span id="copy-year"></span> Copyright Bangladesh Post Office.
             </p>
           </div>
           <script>
@@ -416,7 +419,6 @@
               document.getElementById("copy-year").innerHTML = year;
           </script>
         </footer>
-
       </div>
     </div>
     
@@ -548,6 +550,7 @@
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
 <script src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
+
   @yield('script')
 
   <script>
@@ -591,7 +594,7 @@
  });
   
   </script>
-
+  @stack('script')
 
 
 

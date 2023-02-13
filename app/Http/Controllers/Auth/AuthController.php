@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Session;
 use App\Models\User;
 use App\Models\UserVerify;
+use App\Models\Brtastatus;
+use App\Models\Brtabookings;
 use Hash;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Mail; 
   
@@ -41,6 +44,7 @@ class AuthController extends Controller
      */
     public function postLogin(Request $request)
     {
+        $user = \Auth::user();
         //dd($request);
         $request->validate([
             'email' => 'required',
@@ -48,6 +52,7 @@ class AuthController extends Controller
         ]);
    
         $credentials = $request->only('email', 'password');
+        //dd($credentials);
         if (Auth::attempt($credentials)) {
             return redirect()->intended('dashboard')
             ->withSuccess('You have Successfully loggedin');
@@ -62,7 +67,7 @@ class AuthController extends Controller
      * @return response()
      */
     public function postRegistration(Request $request)
-    {  
+    {  $user = \Auth::user();
         //dd($request);
         $request->validate([
             'name' => 'required',
@@ -92,12 +97,36 @@ class AuthController extends Controller
      * Write code on Method
      *
      * @return response()
+     * 
      */
     public function dashboard()
     {
+        $user = \Auth::user();
         //return "THIS SECTION";
         if(Auth::check()){
-            return view('backend.dashboard.index');
+            // Total received calculation
+            $totalreceived = Brtastatus::sum('total_process');        
+            $todayreceived = Brtastatus::whereDate('created_at', Carbon::today())->sum('total_process');
+            $now = Carbon::now();       
+            $weekStartDate = $now->copy()->startOfWeek(Carbon::SATURDAY)->format('Y-m-d H-m-s');
+            $weekEndDate = $now->copy()->endOfWeek(Carbon::THURSDAY)->format('Y-m-d H-m-s');
+            //dd($weekEndDate);
+            $this_week_data = Brtastatus::where('created_at', '>', $weekStartDate)->where('created_at', '<', $weekEndDate)->sum('total_process');
+
+            $subweekStartDate = Carbon::now(Carbon::SATURDAY)->subDays(7)->format('Y-m-d H-m-s');            
+            $last_week = Brtastatus::where('created_at', '<', $weekStartDate)->where('created_at', '>', $subweekStartDate)->sum('total_process');
+            //dd(round($todayreceived));
+
+            $totalbooking = Brtabookings::count();
+            $todaybooking = Brtabookings::whereDate('created_at', Carbon::today())->count();
+            $this_week_booking = Brtabookings::where('created_at', '>', $weekStartDate)->where('created_at', '<', $weekEndDate)->count();
+            $last_week_booked = Brtabookings::where('created_at', '<', $weekStartDate)->where('created_at', '>', $subweekStartDate)->count();
+            $undelivered = $totalreceived - $totalbooking;
+            //dd($undelivered);
+            // $totaldelivered = Brtabookings::count();
+
+            return view('backend.dashboard.index',compact('totalreceived','todayreceived','this_week_data','last_week','totalbooking','todaybooking','this_week_booking','last_week_booked','undelivered'));
+
         }
   
         return redirect("admin.login")->withSuccess('Opps! You do not have access');

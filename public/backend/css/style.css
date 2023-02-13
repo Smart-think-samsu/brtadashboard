@@ -11902,12 +11902,12 @@ button {
 }
 @media (min-width: 576px) {
   .card-mini {
-    margin-bottom: 105px;
+    /* margin-bottom: 105px; */
   }
 }
 @media (min-width: 992px) {
   .card-mini {
-    margin-bottom: 115px;
+    /* margin-bottom: 115px; */
   }
 }
 .card-mini .card-header h2 {

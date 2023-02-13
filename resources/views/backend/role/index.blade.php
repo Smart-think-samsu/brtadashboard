@@ -9,25 +9,6 @@
             <p>{{session('success')}}</p>
         </div>
     @endif
-
-
-    <!-- <table border="0" cellspacing="5" cellpadding="5">
-        <tbody>
-        <tr>
-            <td>Start date:</td>
-            <td><input type="text" id="min" name="min"></td> <span style="margin-left:5px;"></span>
-            <td>End date:</td>
-            <td><input type="text" id="max" name="max"></td>
-        </tr>
-        <tr>
-            <td>Maximum date:</td>
-            <td><input type="text" id="max" name="max"></td>
-        </tr>
-        </tbody>
-    </table> -->
-    <a class="btn btn-primary" href="{{Route('role_add.create')}}" type="submit">New Role</a>
-    <br>
-    <br>
     <table id="example" class="display nowrap" style="width:100%">
         <thead>
             <tr>
@@ -39,14 +20,19 @@
                 <!-- <th>Action</th> -->
             </tr>
         </thead>
-        <tbody>          
-            <tr>
-                <td>01</td>
-                <td>milon</td>
-                <td>milon</td>
-                <td>action</td>
-                <!-- <td>jjjj</td> -->
-            </tr>      
+        <tbody> 
+            @foreach($roles as $k => $role)         
+                <tr>
+                    <td>{{++$k}}</td>
+                    <td>{{$role->name}}</td>
+                    <td>{{$role->slug}}</td>
+                    <td>
+                        <a href="{{Route('role-permission',$role->id)}}" class="btn btn-sm btn-outline--primary">
+                            <i class="las la-desktop"></i> Permissions
+                        </a>
+                    </td>
+                </tr>  
+            @endforeach    
         </tbody>
         <!-- <tfoot>
             <tr>

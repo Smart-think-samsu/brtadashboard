@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 
 class BrtabookingController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -69,7 +70,7 @@ class BrtabookingController extends Controller
     public function licencestore(Request $request)
     {
 
-        $brtabookings = Brtabookings::where('drivingLicenseNo', $request->drivingLicenseNo)->where('user_id', $request->user_id)->first();      
+        $brtabookings = Brtabookings::where('drivingLicenseNo', $request->drivingLicenseNo)->first();      
         //return $brtabookings;
         if($brtabookings){
         return $response = array(
@@ -97,14 +98,14 @@ class BrtabookingController extends Controller
                         "insured"=>$brtabookings["insured"],
                         "booking_status"=>$brtabookings["booking_status"],
                         "created_at"=>$brtabookings["created_at"],
-                        "updated_at"=>$brtabookings["updated_at"]                                   
-                                    
+                        "updated_at"=>$brtabookings["updated_at"],                                
+                        'token' => $brtabookings->createToken("API TOKEN")->plainTextToken       
             );
         }else{
             return $response = array(
                 "status_code"=>"404",
                 "status"=>"Data not found"
-            
+                  
             );
         }
       
@@ -113,14 +114,18 @@ class BrtabookingController extends Controller
 
 
     public function store(Request $request)
-    {   
+    {  
+        //return $request;
+        //$header = $request->header('Authorization');
+        
+        
         $date = Carbon::now()->format('d');
         $insurance_id = $date.rand(1000, 9999); 
         $brtabookchack = Brtabookings::where('drivingLicenseNo', $request->drivingLicenseNo)->first();
         $insurance_id_check = Brtabookings::where('insurance_id', $insurance_id)->first();
         
         if(!$insurance_id_check){
-            if(!$brtabookchack){    
+            if(!$brtabookchack){   
 
                 $brtabookings = new Brtabookings();
                 $brtabookings->user_id = $request->input('user_id');    
@@ -141,14 +146,23 @@ class BrtabookingController extends Controller
                 // $brtabookings->deliveryAddress =json_encode($request->deliveryAddress);        
                 $brtabookings->save();
                 $created_at = Brtabookings::where('insurance_id', $insurance_id)->first();
+                
                 return $response = array(
-                    
+
                     "status_code"=>"200",
                     "status"=>"Success",
                     "insurance_id"=>$insurance_id,               
-                    "created_at"=>$created_at->created_at              
+                    "created_at"=>$created_at->created_at            
                                   
                 );
+
+                // return response()->json([
+                //     'status' => true,
+                //     'message'=> 'success',
+                //     'token' => $created_at->createToken("API TOKEN")->plainTextToken
+        
+                // ]);
+
             }else{
                 return $response = array(
                     "status_code"=>"500",
@@ -219,16 +233,16 @@ class BrtabookingController extends Controller
         // ===============BRTA DATE WISE BOOKIN LIST =====================
 
     public function bookingdailydata(Request $request)
-    {  
-        
-        $brtadailydatas = Brtabookings::whereDate('created_at', $request->date)->get();      
-
-        
-            return $response = array(
-                "status_code"=>"200",
-                "status"=>"Success",          
-                "licenseIssueData"=>$brtadailydatas
-            );
+    { 
+        //return $request;
+         
+        $brtadailydatas = Brtabookings::whereDate('created_at', $request->date)->where('user_id', $request->user_id)->get();      
+       
+        return $response = array(
+            "status_code"=>"200",
+            "status"=>"Success",          
+            "licenseIssueData"=>$brtadailydatas
+        );
                         
     }
 

@@ -5,135 +5,106 @@
         <!-- ====================================
         ——— CONTENT WRAPPER
         ===================================== -->
-      <div class="content-wrapper">
-      <div class="content">                
-                <!-- Top Statistics -->
-          <div class="row">
-              <div class="col-xl-3 col-sm-6">
-                <div class="card card-default card-mini">
-                  <div class="card-header">
-                    <h2>$18,699</h2>
-                    <div class="dropdown">
-                      <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      </a>
-
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
-                    <div class="sub-title">
-                      <span class="mr-1">Sales of this year</span> |
-                      <span class="mx-1">45%</span>
-                      <i class="mdi mdi-arrow-up-bold text-success"></i>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <div class="chart-wrapper">
-                      <div>
-                        <div id="spline-area-1"></div>
-                      </div>
-                    </div>
-                  </div>
+<div class="content-wrapper">
+    <div class="content">                
+        <!-- Top Statistics -->
+        <div class="row">
+            <div class="card" style="width: 22rem; margin-right:10px;">
+                <div class="card-header" style="color:black;padding-left:1.3rem">
+                   <h5>Received</h5> 
                 </div>
-              </div>
-              <div class="col-xl-3 col-sm-6">
-                <div class="card card-default card-mini">
-                  <div class="card-header">
-                    <h2>$14,500</h2>
-                    <div class="dropdown">
-                      <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
-                    <div class="sub-title">
-                      <span class="mr-1">Expense of this year</span> |
-                      <span class="mx-1">50%</span>
-                      <i class="mdi mdi-arrow-down-bold text-danger"></i>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <div class="chart-wrapper">
-                      <div>
-                        <div id="spline-area-2"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-3 col-sm-6">
-                <div class="card card-default card-mini">
-                  <div class="card-header">
-                    <h2>$4199</h2>
-                    <div class="dropdown">
-                      <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      </a>
-
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
-                    <div class="sub-title">
-                      <span class="mr-1">Profit of this year</span> |
-                      <span class="mx-1">20%</span>
-                      <i class="mdi mdi-arrow-down-bold text-danger"></i>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <div class="chart-wrapper">
-                      <div>
-                        <div id="spline-area-3"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-3 col-sm-6">
-                <div class="card card-default card-mini">
-                  <div class="card-header">
-                    <h2>$20,199</h2>
-                    <div class="dropdown">
-                      <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      </a>
-
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
-                    <div class="sub-title">
-                      <span class="mr-1">Revenue of this year</span> |
-                      <span class="mx-1">35%</span>
-                      <i class="mdi mdi-arrow-up-bold text-success"></i>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <div class="chart-wrapper">
-                      <div>
-                        <div id="spline-area-4"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                        
+                        <td style ="padding-left:20px;"><h6> Total</h6> </td>
+                        <td style ="text-align:center;"><h6>{{$totalreceived}}</h6></td>
+                        </tr>
+                        <tr>
+                        
+                        <td style ="padding-left:20px;"><h6>Today</h6> </td>
+                        <td style ="text-align:center;"><h6>{{$todayreceived}}</h6></td>
+                        </tr>
+                        <tr>
+                        
+                        <td style ="padding-left:20px;"><h6>This Week</h6></td>
+                        <td style ="text-align:center;"><h6>{{$this_week_data}}</h6></td>
+                        </tr>
+                        <tr>
+                        
+                        <td style ="padding-left:20px;"><h6>Last Week</h6></td>
+                        <td style ="text-align:center;"><h6>{{$last_week}}</h6></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-          </div>
-        </div>
 
-      </div>
+            <div class="card" style="width: 22rem; margin-right:10px;">
+                <div class="card-header" style="padding-left:1.3rem">
+                    <h5>Processed</h5> 
+                </div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                        
+                        <td style ="padding-left:20px;"><h6> Total</h6></td>
+                        <td style ="text-align:center;"><h6>{{$totalbooking}}</h6></td>
+                        </tr>
+                        <tr>
+                        
+                        <td style ="padding-left:20px;"><h6>Today</h6> </td>
+                        <td style ="text-align:center;"><h6>{{$todaybooking}}</h6></td>
+                        </tr>
+                        <tr>
+                        
+                        <td style ="padding-left:20px;"><h6>This Week</h6></td>
+                        <td style ="text-align:center;"><h6>{{$this_week_booking}}</h6></td>
+                        </tr>
+                        <tr>
+                        
+                        <td style ="padding-left:20px;"><h6>Last Week</h6></td>
+                        <td style ="text-align:center;"><h6>{{$last_week_booked}}</h6></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card" style="width: 22rem;">
+                <div class="card-header" style="padding-left:1.3rem">
+                    <h5>Status</h5>
+                </div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                        
+                        <td style ="padding-left:20px;"><h6> Delivered</h6></td>
+                        <td style ="text-align:center;"><h6>{{$totalbooking}}</h6></td>
+                        </tr>
+                        <tr>
+                        
+                        <td style ="padding-left:20px;"><h6>Undelivered</h6> </td>
+                        <td style ="text-align:center;"><h6>{{$undelivered}}</h6></td>
+                        </tr>
+                        <tr>
+                        
+                        <td style ="padding-left:20px;"><h6></h6></td>
+                        <td style ="text-align:center;"><h6></h6></td>
+                        </tr>
+                        <tr>
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+        
+        </div>
+    </div>
+</div>
+      
     
     
 
     <!-- Card Offcanvas -->
-    <div class="card card-offcanvas" id="contact-off" >
+    <!-- <div class="card card-offcanvas" id="contact-off" >
       <div class="card-header">
         <h2>Contacts</h2>
         <a href="#" class="btn btn-primary btn-pill px-4">Add New</a>
@@ -234,7 +205,7 @@
         </div>
 
       </div>
-    </div>
+    </div> -->
 
 
 @endsection

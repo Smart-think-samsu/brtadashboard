@@ -18,12 +18,12 @@
                     </a>
                 </li> -->
 
-                <li>
-                    <a class="sidenav-item-link" href="analytics.html">
+                <!-- <li>
+                    <a class="sidenav-item-link" href="#">
                     <i class="mdi mdi-chart-line"></i>
                     <span class="nav-text">User Management</span>
                     </a>
-                </li>
+                </li> -->
                 <li  class="has-sub" >
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#buttons"
                         aria-expanded="false" aria-controls="buttons">

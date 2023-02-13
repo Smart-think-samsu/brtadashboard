@@ -13,24 +13,22 @@
                         <div class="col-md-12 mb-3">
                         <label for="total_process">Total Received</label>
                         <input type="text" class="form-control border-success" name="total_process" placeholder="Enter total received" required="">
-                        <!-- <div class="text-success small mt-1">
-                            Looks good!
-                        </div> -->
                         </div>
                         <div class="col-md-12 mb-3">
                         <label for="total_deliver">Supporting Document</label>
-                        <input type="file" class="form-control border-info" name="total_deliver" placeholder="Enter total Delivered" required="">
-                        <!-- <div class="text-info small mt-1">
-                            We'll never share your email with anyone else.
-                        </div> -->
+                        <input id="myFileInput" type="file" accept="image/*;capture=camera">
+
+                        <!-- <input type="file" id="capture" accept="image/*" capture="camera"> -->
+                        <!-- <input type="file" class="form-control border-info" name="total_deliver" placeholder="Enter total Delivered" required=""> -->
                         </div>            
                     </div>
+
+                    
+  <!-- <input type="file" style="display: none;" id="upload_file" name="upload_file" accept="image/*" capture="camera" /> -->
+ 
+
                    
-                    <!-- <a class="btn btn-danger btn-sm " data-toggle="modal"
-                        data-target="#confirm-delete" href="javascript:;"
-                        data-href="">
-                        <i class="fas fa-trash-alt"></i>
-                    </a> -->
+                  
                     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="confirm-deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -79,5 +77,47 @@
 
 {{-- DELETE MODAL --}}
 
+
+
+<script>
+    
+
+
+
+    // function readURL(input) {
+    //     if (input.files && input.files[0]) {
+    //         var reader = new FileReader();
+
+    //         reader.onload = function (e) {
+    //             $('#blah').attr('src', e.target.result);
+    //         }
+
+    //         reader.readAsDataURL(input.files[0]);
+    //     }
+    // }
+
+    // $("#imgInp").change(function(){
+    //     readURL(this);
+    // });
+</script>
+
+
   
 @endsection
+@push('script')
+
+<script>
+var myInput = document.getElementById('myFileInput');
+console.log(myInput);
+function sendPic() {
+    var file = myInput.files[0];
+    console.log(file);
+    // Send file here either by adding it to a `FormData` object 
+    // and sending that via XHR, or by simply passing the file into 
+    // the `send` method of an XHR instance.
+}
+
+myInput.addEventListener('change', sendPic, false);
+</script>
+
+@endpush

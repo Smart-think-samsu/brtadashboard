@@ -126,6 +126,7 @@ class ComposerStaticInitb39900ef9da02dd6559cb8d429b507b6
             'Laravel\\SerializableClosure\\' => 28,
             'Laravel\\Sanctum\\' => 16,
             'Laravel\\Sail\\' => 13,
+            'Laravel\\Breeze\\' => 15,
         ),
         'I' => 
         array (
@@ -419,6 +420,10 @@ class ComposerStaticInitb39900ef9da02dd6559cb8d429b507b6
         array (
             0 => __DIR__ . '/..' . '/laravel/sail/src',
         ),
+        'Laravel\\Breeze\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/breeze/src',
+        ),
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Macroable',
@@ -545,7 +550,9 @@ class ComposerStaticInitb39900ef9da02dd6559cb8d429b507b6
         'App\\Http\\Controllers\\Back\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/Back/AdminController.php',
         'App\\Http\\Controllers\\Back\\BrtaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Back/BrtaController.php',
         'App\\Http\\Controllers\\Back\\BrtabookingController' => __DIR__ . '/../..' . '/app/Http/Controllers/Back/BrtabookingController.php',
+        'App\\Http\\Controllers\\Back\\EpassportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Back/EpassportController.php',
         'App\\Http\\Controllers\\Back\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Back/LoginController.php',
+        'App\\Http\\Controllers\\Back\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Back/RoleController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\PermissionController' => __DIR__ . '/../..' . '/app/Http/Controllers/PermissionController.php',
@@ -565,6 +572,8 @@ class ComposerStaticInitb39900ef9da02dd6559cb8d429b507b6
         'App\\Models\\Admin' => __DIR__ . '/../..' . '/app/Models/Admin.php',
         'App\\Models\\Brtabookings' => __DIR__ . '/../..' . '/app/Models/Brtabookings.php',
         'App\\Models\\Brtastatus' => __DIR__ . '/../..' . '/app/Models/Brtastatus.php',
+        'App\\Models\\Epassport' => __DIR__ . '/../..' . '/app/Models/Epassport.php',
+        'App\\Models\\Operator' => __DIR__ . '/../..' . '/app/Models/Operator.php',
         'App\\Models\\Permission' => __DIR__ . '/../..' . '/app/Models/Permission.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
         'App\\Models\\Role' => __DIR__ . '/../..' . '/app/Models/Role.php',
@@ -2718,6 +2727,11 @@ class ComposerStaticInitb39900ef9da02dd6559cb8d429b507b6
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
+        'Laravel\\Breeze\\BreezeServiceProvider' => __DIR__ . '/..' . '/laravel/breeze/src/BreezeServiceProvider.php',
+        'Laravel\\Breeze\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallCommand.php',
+        'Laravel\\Breeze\\Console\\InstallsApiStack' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsApiStack.php',
+        'Laravel\\Breeze\\Console\\InstallsBladeStack' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsBladeStack.php',
+        'Laravel\\Breeze\\Console\\InstallsInertiaStacks' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsInertiaStacks.php',
         'Laravel\\Sail\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/sail/src/Console/InstallCommand.php',
         'Laravel\\Sail\\Console\\PublishCommand' => __DIR__ . '/..' . '/laravel/sail/src/Console/PublishCommand.php',
         'Laravel\\Sail\\SailServiceProvider' => __DIR__ . '/..' . '/laravel/sail/src/SailServiceProvider.php',

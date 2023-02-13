@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Back;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Brtastatus;
+use Auth;
 
 
 class BrtaController extends Controller
@@ -14,9 +15,25 @@ class BrtaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function backindex()
+    {
+        $user = \Auth::user();
+        //dd($user->id);
+        $brtas = Brtastatus::all();
+        //dd($brtas);
+        return view('backend.brta_status.backindex',compact('brtas'));
+    }
+
+
+
+
+
     public function index()
     {
-        $brtas = Brtastatus::all();
+        $user = \Auth::user();
+        //dd($user->id);
+        $brtas = Brtastatus::where('user_id', $user->id)->get();
         //dd($brtas);
         return view('backend.brta_status.index',compact('brtas'));
     }
@@ -44,8 +61,9 @@ class BrtaController extends Controller
             'total_process' => ['required'],
             'total_deliver' => ['required'],
         ]);     
-        
+        $user = \Auth::user();
         $brta = new Brtastatus();
+        $brta->user_id = $user->id;
         $brta->total_process = $request->total_process;
         // $brta->total_deliver = $request->total_deliver;
 
@@ -109,7 +127,12 @@ class BrtaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        //dd($id);
+        $user=Brtastatus::find($id);
+        $user->delete();
+        return redirect('brta_status')
+        ->with('success','Brta status delete successfully.');
     }
 
 

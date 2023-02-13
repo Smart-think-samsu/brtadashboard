@@ -1,3 +1,14 @@
+<?php
+
+$user = \Auth::user();
+//dd($user->role_id);
+
+$rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pluck('menu_name')->toArray();
+
+
+?>
+
+
 <aside class="left-sidebar sidebar-dark" id="left-sidebar">
     <div id="sidebar" class="sidebar sidebar-with-footer">
         <!-- Aplication Brand -->
@@ -19,62 +30,144 @@
                     </a>
                 </li>
                 <!-- ======================USER SECTION================== -->
+                @if (in_array('user-manage', $rolePermission))
                 <li>
                     <a class="sidenav-item-link" href="{{Route('adminuser.index')}}">
                     <i class="mdi mdi-chart-line"></i>
                     <span class="nav-text">User Management</span>
                     </a>
                 </li>
+               @endif
                 <!-- ======================BRTA STATUS SECTION================== -->
+                @if (in_array('brta-status', $rolePermission))
                 <li>
-                    <a class="sidenav-item-link" href="{{Route('brta_status.index')}}">
+                    <a class="sidenav-item-link" href="{{Route('brta_status_back')}}">
                     <i class="mdi mdi-chart-line"></i>
                     <span class="nav-text">Brta status</span>
                     </a>
-                </li>                
+                </li>
+                @endif                
                 <!-- ======================BRTA BOOKING STATUS SECTION================== -->
+                @if (in_array('brta-booking-status', $rolePermission))
                 <li>
                     <a class="sidenav-item-link" href="{{Route('brta_booking_status.index')}}">
                     <i class="mdi mdi-chart-line"></i>
                     <span class="nav-text">Brta booking status</span>
                     </a>
                 </li>
+                @endif
+
+                <!-- ======================ALL OPERATOR SECTION================== -->  
                 
-                <li>
-                    <a class="sidenav-item-link" href="{{Route('role_add.index')}}">
-                    <i class="mdi mdi-chart-line"></i>
-                    <span class="nav-text">Role Management</span>
+                <!-- <li class="has-sub" >
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#passport"
+                    aria-expanded="false" aria-controls="passport">
+                    <i class="mdi mdi-email"></i>
+                    <span class="nav-text">email</span> <b class="caret"></b>
                     </a>
-                </li> 
-                <!-- <li  class="has-sub" >
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#buttons"
-                        aria-expanded="false" aria-controls="buttons">
-                        <span class="nav-text">Brta status</span> <b class="caret"></b>
-                    </a>
-                    <ul  class="collapse"  id="buttons">
-                        <div class="sub-menu">                                
+                    <ul  class="collapse"  id="passport" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
                             <li>
-                                <a href="button-default.html">Button Default</a>
+                                <a class="sidenav-item-link" href="email-inbox.html">
+                                    <span class="nav-text">Email Inbox</span>
+                                    
+                                </a>
                             </li>
-                            
                             <li>
-                                <a href="button-dropdown.html">Button Dropdown</a>
+                                <a class="sidenav-item-link" href="email-details.html">
+                                    <span class="nav-text">Email Details</span>                                
+                                </a>
                             </li>
-                            
                             <li>
-                                <a href="button-group.html">Button Group</a>
+                                <a class="sidenav-item-link" href="email-compose.html">
+                                    <span class="nav-text">Email Compose</span>                               
+                                </a>
                             </li>
-                            
-                            <li>
-                                <a href="button-social.html">Button Social</a>
-                            </li>
-                            
-                            <li>
-                                <a href="button-loading.html">Button Loading</a>
-                            </li>                                
                         </div>
                     </ul>
-                </li> -->
+                </li>  -->
+                
+                
+
+                @if (in_array('operator-management', $rolePermission))
+                <li  class="has-sub" >
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#operator"
+                        aria-expanded="false" aria-controls="operator"><i class="mdi mdi-chart-line"></i>
+                        <span class="nav-text">Operator Management</span> <b class="caret"></b>
+                    </a>
+                    <ul  class="collapse"  id="operator">
+                        <div class="sub-menu">
+                            @if (in_array('all-operator', $rolePermission))                          
+                            <li>
+                                <a href="{{Route('operator.index')}}">All Operator</a>
+                            </li>
+                            @endif
+                            @if (in_array('brta-operator', $rolePermission))      
+                            <li>
+                                <a href="{{Route('operator.show','3')}}">Brta Operator</a>
+                            </li>
+                            @endif
+                            @if (in_array('passport-operator', $rolePermission))     
+                            <li>
+                                <a href="{{Route('operator.show','4')}}">Passport Operator</a>
+                            </li>
+                            @endif                               
+                        </div>
+                    </ul>
+                </li>
+                @endif
+
+                
+                
+                @if (in_array('role-management', $rolePermission))
+                <li  class="has-sub" >
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#buttons"
+                        aria-expanded="false" aria-controls="buttons"><i class="mdi mdi-chart-line"></i>
+                        <span class="nav-text">Role Management</span> <b class="caret"></b>
+                    </a>
+                    <ul  class="collapse"  id="buttons">
+                        <div class="sub-menu">
+                            @if (in_array('manage-role', $rolePermission))                          
+                            <li>
+                                <a href="{{Route('role_add.index')}}">Manage Role</a>
+                            </li>
+                            @endif
+                            @if (in_array('create-role', $rolePermission))      
+                            <li>
+                                <a href="{{Route('role_add.create')}}">Create Role</a>
+                            </li>
+                            @endif                               
+                        </div>
+                    </ul>
+                </li>
+                @endif
+
+                <!-- ==================================== PASSPORT SECTION =================================== -->
+
+                @if (in_array('passport-management', $rolePermission))
+                <li  class="has-sub" >
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#passport"
+                        aria-expanded="false" aria-controls="passport"><i class="mdi mdi-chart-line"></i>
+                        <span class="nav-text">Passport Management</span> <b class="caret"></b>
+                    </a>
+                    <ul  class="collapse"  id="passport">
+                        <div class="sub-menu">
+                            @if (in_array('all-passport', $rolePermission))                          
+                            <li>
+                                <a href="{{Route('epassport.index')}}">All Passport</a>
+                            </li>
+                            @endif
+                            <!-- @if (in_array('create-role', $rolePermission))       -->
+                            <!-- <li>
+                                <a href="{{Route('role_add.create')}}">Create Role</a>
+                            </li> -->
+                            <!-- @endif                                -->
+                        </div>
+                    </ul>
+                </li>
+                @endif
+
+
 
                 <!-- <li class="section-title">
                     Apps

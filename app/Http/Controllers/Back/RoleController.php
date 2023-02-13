@@ -4,13 +4,10 @@ namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Role;
 
 class RoleController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth'); 
-    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +15,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('backend.role.index');
+        $roles = Role::all();
+        return view('backend.role.index',compact('roles'));
     }
 
     /**
@@ -39,15 +37,17 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $user = $request->user();
-        //dd($user);
-        if ($request->user()->can('create-tasks')) {
-            return "connection okk";
-        }else{
-            return "its not work";
-        }
-        
-      
+       
+        $validatedData = $request->validate([
+            'name' => ['required'],
+            'slug' => ['required'],
+        ]);
+        Role::create([
+            'name' => $request['name'],
+            'slug' => $request['slug'],
+        ]);
+        return redirect('role_add')
+        ->with('success','Role Create successfully.');
     }
 
     /**

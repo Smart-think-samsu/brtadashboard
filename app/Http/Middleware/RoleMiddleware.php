@@ -16,6 +16,7 @@ class RoleMiddleware
      */
     public function handle($request, Closure $next, $role, $permission = null)
     {  
+        //dd($user->hasRole('admin','editor'));
         //dd($role);        
         //dd($request->user()->hasRole($role));
 

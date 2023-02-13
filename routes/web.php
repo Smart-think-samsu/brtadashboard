@@ -4,8 +4,11 @@ use App\Http\Controllers\Back\AdminController;
 use App\Http\Controllers\Back\BrtaController;
 use App\Http\Controllers\Back\BrtabookingController;
 use App\Http\Controllers\Back\RoleController;
+use App\Http\Controllers\Back\PermissionController;
+use App\Http\Controllers\Back\OperatorController;
+use App\Http\Controllers\Back\EpassportController;
+
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
@@ -23,7 +26,10 @@ use App\Models\Role;
 */
 
 // ================================ BACKEND ROUTE ==================================
-
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    // return what you want
+});
 
 // Route::get('/', function () {
 
@@ -32,10 +38,10 @@ use App\Models\Role;
 // });
 // =====================EMAIL VERIFICATION =====================
 Route::get('/', [AuthController::class, 'index'])->name('admin.login');
-Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post'); 
-Route::get('registration', [AuthController::class, 'registration'])->name('admin.register');
-Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('admin.register.post'); 
-Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/post-login', [AuthController::class, 'postLogin'])->name('login.post'); 
+Route::get('/registration', [AuthController::class, 'registration'])->name('admin.register');
+Route::post('/post-registration', [AuthController::class, 'postRegistration'])->name('admin.register.post'); 
+// Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
   
 /* New Added Routes */
 Route::get('dashboard', [AuthController::class, 'dashboard'])->middleware(['auth','is_verify_email']); 
@@ -50,32 +56,47 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //==========================FORGET PASSWORD ROUTE ===========================
-
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
-Route::group(['middleware' => ['auth']], function() {   
-    Route::resource('adminuser', AdminController::class); 
-    // Route::get('/roles', [PermissionController::class,'Permission']);
-    Route::resource('brta_status', BrtaController::class); 
-    Route::resource('brta_booking_status', BrtabookingController::class); 
+Route::group(['middleware' => ['auth']], function() { 
+    Route::resource('/adminuser', AdminController::class);
+    Route::delete('/adminuser/delete/{id}', [AdminController::class,'destroy']);     
+    Route::resource('/brta_status', BrtaController::class); 
+    Route::delete('/brta_status/delete/{id}', [BrtaController::class,'destroy']); 
+    Route::get('/brta_status_back', [BrtaController::class,'backindex'])->name('brta_status_back');
+    Route::resource('/brta_booking_status', BrtabookingController::class); 
 
 });
-Route::group(['middleware' => ['role:admin']], function() {
 
+Route::group(['middleware' => ['auth']], function() {     
+    Route::resource('/adminuser', AdminController::class);
+    Route::get('/epassport', [EpassportController::class, 'index'])->name('epassport.index');
+    Route::resource('/operator', OperatorController::class);
+    Route::get('role-permission/{id}',[PermissionController::class,'index'])->name('role-permission');
+    Route::post('store/{id}',[PermissionController::class,'store'])->name('role-store');
+
+});
+
+
+Route::group(['middleware' =>'auth'], function() {
+    
     Route::resource('role_add', RoleController::class);
+    
 
-    Route::get('/user', function() {
-        //return 'Welcome...!!';
-        $user = \Auth::user();
-        $role = Role::where('slug','admin')->first();
+    // Route::get('/user', function() {
         
-        //dd($role);
-        //dd($user->role);
-       return 'Welcome...!!';       
-    });
+    //     $user = \Auth::user();
+    //     if($user->hasrole('admin')){
+    //         dd('yes');
+    //     }    
+        
+    //     //dd($role);
+    //     //dd($user->role);
+    //    return 'Welcome...!!';       
+    // });
  
  });
 
