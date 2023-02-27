@@ -18,7 +18,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                <th scope="col">#</th>
+                <th scope="col">SI</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Roles</th>
@@ -29,8 +29,8 @@
                 @foreach($users as $key => $user)
                     <tr>
                         
-                        <!-- <td scope="row">{{ ++$key }}</td> -->
-                        <td scope="row">{{ $user->id }}</td>
+                        <td scope="row">{{ ++$key }}</td>
+                        <!-- <td scope="row">{{ $user->id }}</td> -->
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->role}}</td>

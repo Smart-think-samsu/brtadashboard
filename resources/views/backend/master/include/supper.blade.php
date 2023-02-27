@@ -2,9 +2,7 @@
 
 $user = \Auth::user();
 //dd($user->role_id);
-
 $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pluck('menu_name')->toArray();
-
 
 ?>
 
@@ -26,7 +24,7 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                 <li class="active">
                     <a class="sidenav-item-link" href="{{url('dashboard')}}">
                     <i class="mdi mdi-briefcase-account-outline"></i>
-                    <span class="nav-text">Business Dashboard</span>
+                    <span class="nav-text">Dashboard</span>
                     </a>
                 </li>
                 <!-- ======================USER SECTION================== -->
@@ -43,33 +41,48 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                 <li>
                     <a class="sidenav-item-link" href="{{Route('brta_status_back')}}">
                     <i class="mdi mdi-chart-line"></i>
-                    <span class="nav-text">Brta status</span>
+                    <span class="nav-text">BRTA Status</span>
                     </a>
                 </li>
                 @endif                
                 <!-- ======================BRTA BOOKING STATUS SECTION================== -->
-                @if (in_array('brta-booking-status', $rolePermission))
 
-                <li  class="has-sub" >
+                @if (in_array('brta-booking-status', $rolePermission))
+                <li>
+                    <a class="sidenav-item-link" href="{{Route('brta_booking_status.index')}}">
+                    <i class="mdi mdi-chart-line"></i>
+                    <span class="nav-text">BRTA Booking Status</span>
+                    </a>
+                </li>
+                @endif
+                @if (in_array('booking-report', $rolePermission))     
+                <li>
+                    <a class="sidenav-item-link" href="{{Route('brtabooking.report')}}">
+                    <i class="mdi mdi-chart-line"></i>
+                    <span class="nav-text">BRTA Booking Report</span>
+                    </a>
+                </li>
+                @endif
+
+                <!-- <li class="has-sub" >
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#brtabooking"
                         aria-expanded="false" aria-controls="brtabooking"><i class="mdi mdi-chart-line"></i>
-                        <span class="nav-text">Brta booking status</span> <b class="caret"></b>
+                        <span class="nav-text">BRTA Booking Status</span> <b class="caret"></b>
                     </a>
                     <ul  class="collapse"  id="brtabooking">
                         <div class="sub-menu">
-                            @if (in_array('all-booking', $rolePermission))            
+                                 
                             <li>
                                 <a href="{{Route('brta_booking_status.index')}}">All Booking</a>
                             </li>
-                            @endif
-                            @if (in_array('booking-report', $rolePermission))          
+                                 
                             <li>
                                 <a href="{{Route('brtabooking.report')}}">Booking Report</a>
                             </li>
-                            @endif                                         
+                                                          
                         </div>
                     </ul>
-                </li>
+                </li> -->
 
                 <!-- <li>
                     <a class="sidenav-item-link" href="{{Route('brta_booking_status.index')}}">
@@ -77,7 +90,7 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                     <span class="nav-text">Brta booking status</span>
                     </a>
                 </li> -->
-                @endif
+                
 
                 <!-- ======================ALL OPERATOR SECTION================== -->  
                 
@@ -126,7 +139,7 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                             @endif
                             @if (in_array('brta-operator', $rolePermission))      
                             <li>
-                                <a href="{{Route('operator.show','3')}}">Brta Operator</a>
+                                <a href="{{Route('operator.show','3')}}">BRTA Operator</a>
                             </li>
                             @endif
                             @if (in_array('passport-operator', $rolePermission))     
@@ -228,8 +241,7 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                         <div class="sub-menu">
                             <li>
                                 <a class="sidenav-item-link" href="email-inbox.html">
-                                    <span class="nav-text">Email Inbox</span>
-                                    
+                                    <span class="nav-text">Email Inbox</span>                                    
                                 </a>
                             </li>
                             <li>
@@ -454,17 +466,14 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                                     aria-expanded="false" aria-controls="widgets">
                                     <span class="nav-text">Widgets</span> <b class="caret"></b>
                                 </a>
-                                <ul  class="collapse"  id="widgets">
-                                    <div class="sub-menu">
-                                    
+                                <ul class="collapse"  id="widgets">
+                                    <div class="sub-menu">                                    
                                         <li >
                                             <a href="widgets-general.html">General Widget</a>
-                                        </li>
-                                        
+                                        </li>                                        
                                         <li >
                                             <a href="widgets-chart.html">Chart Widget</a>
-                                        </li>
-                                    
+                                        </li>                                    
                                     </div>
                                 </ul>
                             </li>
@@ -481,8 +490,7 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                         <div class="sub-menu">
                             <li >
                                 <a class="sidenav-item-link" href="apex-charts.html">
-                                    <span class="nav-text">Apex Charts</span>
-                                    
+                                    <span class="nav-text">Apex Charts</span>                                    
                                 </a>
                             </li>
                         </div>
@@ -526,19 +534,19 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                                     <span class="nav-text">User Planing Settings</span>                                
                                 </a>
                             </li>
-                            <li >
+                            <li>
                                 <a class="sidenav-item-link" href="user-billing.html">
                                     <span class="nav-text">User billing</span>                            
                                 </a>
                             </li>
-                            <li >
+                            <li>
                                 <a class="sidenav-item-link" href="user-notify-settings.html">
                                     <span class="nav-text">User Notify Settings</span>                            
                                 </a>
                             </li>
                         </div>
                     </ul>
-                </li>             -->
+                </li> -->
                 <!-- <li  class="has-sub" >
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#authentication"
                     aria-expanded="false" aria-controls="authentication">

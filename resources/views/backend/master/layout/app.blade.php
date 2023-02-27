@@ -594,10 +594,6 @@
   
   </script>
   @stack('script')
-
-
-
-
   <script src="{{asset('backend/https://cdn.quilljs.com/1.3.6/quill.js')}}"></script>
   <script src="{{asset('backend/plugins/toaster/toastr.min.js')}}"></script>
   <script src="{{asset('backend/js/mono.js')}}"></script>

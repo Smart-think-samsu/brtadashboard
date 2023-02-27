@@ -35,15 +35,7 @@ return [
         'delete' => false,
     ],
     [
-        'title' =>  ' ↳ All Booking',
-        'menu_name' => 'all-booking',
-        'create' => false,
-        'view' => false,
-        'edit' => false,
-        'delete' => false,
-    ],
-    [
-        'title' =>  ' ↳ Booking Report',
+        'title' =>  'Brta Booking Report',
         'menu_name' => 'booking-report',
         'create' => false,
         'view' => false,

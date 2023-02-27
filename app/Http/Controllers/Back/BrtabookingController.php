@@ -59,9 +59,9 @@ class BrtabookingController extends Controller
     {
         ini_set('max_execution_time', 0);
 
-        // $bookingdatas = Brtabookings::where('booking_status','Booked')->take(10)->get();
-        $bookingdatas = Brtabookings::whereBetween(DB::raw('(id)'), ['18', '20'])->get();
-        dd($bookingdatas);
+        $bookingdatas = Brtabookings::where('booking_status','Booked')->get();
+        //$bookingdatas = Brtabookings::whereBetween(DB::raw('(id)'), ['18', '20'])->get();
+        //dd($bookingdatas);
         //$mm = ($bookingdatas['0']['user_id']);
         //dd($mm);
         $data = Http::post('https://www.bpodms.gov.bd/app_dommail_internal_api/public/ws/login', [
@@ -85,15 +85,15 @@ class BrtabookingController extends Controller
             ]);
             //dd($response);
             $chackpost = json_decode($response->getBody()->getContents());
-           //dd($chackpost);
+            //dd($chackpost);
 
-            if($chackpost->status !==  'Data not found'){
-                
-                //dd($bookingdata->barcode);
-                Brtabookings::where('barcode', 'DG718374872BD')
-                    ->update(['booking_status' => 'Delivered']);
+           if($chackpost->status ==  'Deny: Item ID:'.$bookingdata->item_id.' has already Delivered to Receipient'){
+   
+            //dd($bookingdata->barcode);
+            Brtabookings::where('item_id', $bookingdata->item_id)
+                ->update(['booking_status' => 'Delivered']);
 
-            }             
+            }           
         }   
     }
 
@@ -110,32 +110,32 @@ class BrtabookingController extends Controller
         //return $brtabookings;
         if($brtabookings){
         return $response = array(
-                        "status_code"=>"200",
-                        "status"=>"Success", 
-                        "user_id"=>$brtabookings["user_id"],
-                        "insurance_id"=>$brtabookings["insurance_id"],
-                        "drivingLicenseNo"=>$brtabookings["drivingLicenseNo"],
-                        "brtaReferenceNo"=>$brtabookings["brtaReferenceNo"],
-                        "name"=>$brtabookings["name"],
-                        "fatherName"=>$brtabookings["fatherName"],
-                        "mobileNo"=>$brtabookings["mobileNo"],
-                        "houseOrVillage"=>$brtabookings["houseOrVillage"],
-                        "road"=>$brtabookings["road"],
-                        "postCode"=>$brtabookings["postCode"],
-                        "thana"=>$brtabookings["thana"],
-                        "district"=>$brtabookings["district"],
-                        "division"=>$brtabookings["division"],
-                        "barcode"=>$brtabookings["barcode"],
-                        "item_id"=>$brtabookings["item_id"],
-                        "total_charge"=>$brtabookings["total_charge"],
-                        "service_type"=>$brtabookings["service_type"],
-                        "vas_type"=>$brtabookings["vas_type"],
-                        "price"=>$brtabookings["price"],
-                        "insured"=>$brtabookings["insured"],
-                        "booking_status"=>$brtabookings["booking_status"],
-                        "created_at"=>$brtabookings["created_at"],
-                        "updated_at"=>$brtabookings["updated_at"],                                
-                        'token' => $brtabookings->createToken("API TOKEN")->plainTextToken       
+                "status_code"=>"200",
+                "status"=>"Success", 
+                "user_id"=>$brtabookings["user_id"],
+                "insurance_id"=>$brtabookings["insurance_id"],
+                "drivingLicenseNo"=>$brtabookings["drivingLicenseNo"],
+                "brtaReferenceNo"=>$brtabookings["brtaReferenceNo"],
+                "name"=>$brtabookings["name"],
+                "fatherName"=>$brtabookings["fatherName"],
+                "mobileNo"=>$brtabookings["mobileNo"],
+                "houseOrVillage"=>$brtabookings["houseOrVillage"],
+                "road"=>$brtabookings["road"],
+                "postCode"=>$brtabookings["postCode"],
+                "thana"=>$brtabookings["thana"],
+                "district"=>$brtabookings["district"],
+                "division"=>$brtabookings["division"],
+                "barcode"=>$brtabookings["barcode"],
+                "item_id"=>$brtabookings["item_id"],
+                "total_charge"=>$brtabookings["total_charge"],
+                "service_type"=>$brtabookings["service_type"],
+                "vas_type"=>$brtabookings["vas_type"],
+                "price"=>$brtabookings["price"],
+                "insured"=>$brtabookings["insured"],
+                "booking_status"=>$brtabookings["booking_status"],
+                "created_at"=>$brtabookings["created_at"],
+                "updated_at"=>$brtabookings["updated_at"],                                
+                'token' => $brtabookings->createToken("API TOKEN")->plainTextToken       
             );
         }else{
             return $response = array(
