@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Brtabookings;
 use App\Models\Brtastatus;
 use Carbon\Carbon;
+use DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 
 class BrtabookingController extends Controller
 {
@@ -19,7 +21,7 @@ class BrtabookingController extends Controller
      */
     public function index()
     {
-        $bookinginfos = Brtabookings::all();
+        $bookinginfos = Brtabookings::orderBy('id','DESC')->get();
         //dd($bookinginfos);      
         return view('backend.brtabooking.index',compact('bookinginfos'));
     }
@@ -53,12 +55,46 @@ class BrtabookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        
-       // return $request;
-        // $bookingcount = Brtabookings::where('created_at', $request->date)->get();
-        // return $bookingcount;
+        ini_set('max_execution_time', 0);
+
+        // $bookingdatas = Brtabookings::where('booking_status','Booked')->take(10)->get();
+        $bookingdatas = Brtabookings::whereBetween(DB::raw('(id)'), ['18', '20'])->get();
+        dd($bookingdatas);
+        //$mm = ($bookingdatas['0']['user_id']);
+        //dd($mm);
+        $data = Http::post('https://www.bpodms.gov.bd/app_dommail_internal_api/public/ws/login', [
+            'user_id' => '1215005',
+            'password' => '007007',
+            'user_group' => 'POSTAGE_POS',
+            'hnddevice' =>0,
+        ]);
+       $post = json_decode($data->getBody()->getContents());
+       //dd($post);
+
+       foreach($bookingdatas as $bookingdata){
+            //dd($bookingdata->barcode);
+            $response = Http::withHeaders(['Authorization'=> 'Bearer '.$post->token])->post('https://www.bpodms.gov.bd/app_dommail_internal_api/public/ws/reportsingle', [
+                'user_id' => '1215005',
+                'user_group' => 'POSTAGE_POS',
+                'my_branch_code' => $post->my_emts_branch_code, //'121500',
+                'item_id' => 'DL781778137BD', //$bookingdata->my_emts_branch_code $bookingdata->barcode,
+                'report_flag' => 'deliver_point_deliver_return_item_search',
+                'hnddevice' =>'0'
+            ]);
+            //dd($response);
+            $chackpost = json_decode($response->getBody()->getContents());
+           //dd($chackpost);
+
+            if($chackpost->status !==  'Data not found'){
+                
+                //dd($bookingdata->barcode);
+                Brtabookings::where('barcode', 'DG718374872BD')
+                    ->update(['booking_status' => 'Delivered']);
+
+            }             
+        }   
     }
 
     /**
@@ -120,11 +156,24 @@ class BrtabookingController extends Controller
         
         
         $date = Carbon::now()->format('d');
-        $insurance_id = $date.rand(1000, 9999); 
-        $brtabookchack = Brtabookings::where('drivingLicenseNo', $request->drivingLicenseNo)->first();
-        $insurance_id_check = Brtabookings::where('insurance_id', $insurance_id)->first();
+
+        // =========insurance id make============
+        $in_date = Carbon::now()->format('Y-m-d 00:00:00');
+        $in_id = Brtabookings::whereDate('created_at', $in_date)->count();
+        $insurance_m_id = ++$in_id;      
+        $insurance_id = 'IN000'.$insurance_m_id;
+
+        //return $insurance_id;
+
+
+
+        // $insurance_id_check = Brtabookings::where('insurance_id', $insurance_id)->first();        
+        // $insurance_id = $date.rand(1000, 9999);
+        // $insurance_id_check = Brtabookings::where('insurance_id', $insurance_id)->first();
+
+
+        $brtabookchack = Brtabookings::where('drivingLicenseNo', $request->drivingLicenseNo)->first();      
         
-        if(!$insurance_id_check){
             if(!$brtabookchack){   
 
                 $brtabookings = new Brtabookings();
@@ -156,25 +205,14 @@ class BrtabookingController extends Controller
                                   
                 );
 
-                // return response()->json([
-                //     'status' => true,
-                //     'message'=> 'success',
-                //     'token' => $created_at->createToken("API TOKEN")->plainTextToken
-        
-                // ]);
+
 
             }else{
                 return $response = array(
                     "status_code"=>"500",
                     "status"=>"Item already exist"                
                 );
-            }            
-        }else{
-            return 'Please try again Something went wrong! ';
-        }     
-
-        
-
+            }
         
     }
 
@@ -256,7 +294,7 @@ class BrtabookingController extends Controller
      */
     public function edit($id)
     {
-        //
+        return "conncetion okkggg";
     }
 
     /**

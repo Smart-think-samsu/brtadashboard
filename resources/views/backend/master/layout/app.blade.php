@@ -95,7 +95,7 @@
           <div class="navbar-right ">
 
             <!-- search form -->
-            <div class="search-form">
+            <!-- <div class="search-form">
               <form action="index.html" method="get">
                 <div class="input-group input-group-sm" id="input-group-search">
                   <input type="text" autocomplete="off" name="query" id="search-input" class="form-control" placeholder="Search..." />
@@ -121,16 +121,15 @@
 
               </ul>
 
-            </div>
+            </div> -->
 
-            <ul class="nav navbar-nav">
-              <!-- Offcanvas -->
-              <li class="custom-dropdown">
+            <ul class="nav navbar-nav">              
+              <!-- <li class="custom-dropdown">
                 <a class="offcanvas-toggler active custom-dropdown-toggler" data-offcanvas="contact-off" href="javascript:" >
                   <i class="mdi mdi-contacts icon"></i>
                 </a>
-              </li>
-              <li class="custom-dropdown">
+              </li> -->
+              <!-- <li class="custom-dropdown">
                 <button class="notify-toggler custom-dropdown-toggler">
                   <i class="mdi mdi-bell-outline icon"></i>
                   <span class="badge badge-xs rounded-circle">21</span>
@@ -384,7 +383,7 @@
                     </div>
                   </footer>
                 </div>
-              </li>
+              </li> -->
               <!-- User Account -->
               <li class="dropdown user-menu">
                 <button class="dropdown-toggle nav-link" data-toggle="dropdown">
@@ -546,7 +545,7 @@
 
 
 <!-- <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script> -->
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
 <script src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>

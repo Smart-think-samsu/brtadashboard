@@ -77,7 +77,7 @@
                         <tr>
                         
                         <td style ="padding-left:20px;"><h6> Delivered</h6></td>
-                        <td style ="text-align:center;"><h6>{{$totalbooking}}</h6></td>
+                        <td style ="text-align:center;"><h6>{{$totaldelevared}}</h6></td>
                         </tr>
                         <tr>
                         

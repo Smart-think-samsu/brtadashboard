@@ -49,12 +49,34 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                 @endif                
                 <!-- ======================BRTA BOOKING STATUS SECTION================== -->
                 @if (in_array('brta-booking-status', $rolePermission))
-                <li>
+
+                <li  class="has-sub" >
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#brtabooking"
+                        aria-expanded="false" aria-controls="brtabooking"><i class="mdi mdi-chart-line"></i>
+                        <span class="nav-text">Brta booking status</span> <b class="caret"></b>
+                    </a>
+                    <ul  class="collapse"  id="brtabooking">
+                        <div class="sub-menu">
+                            @if (in_array('all-booking', $rolePermission))            
+                            <li>
+                                <a href="{{Route('brta_booking_status.index')}}">All Booking</a>
+                            </li>
+                            @endif
+                            @if (in_array('booking-report', $rolePermission))          
+                            <li>
+                                <a href="{{Route('brtabooking.report')}}">Booking Report</a>
+                            </li>
+                            @endif                                         
+                        </div>
+                    </ul>
+                </li>
+
+                <!-- <li>
                     <a class="sidenav-item-link" href="{{Route('brta_booking_status.index')}}">
                     <i class="mdi mdi-chart-line"></i>
                     <span class="nav-text">Brta booking status</span>
                     </a>
-                </li>
+                </li> -->
                 @endif
 
                 <!-- ======================ALL OPERATOR SECTION================== -->  

@@ -118,14 +118,15 @@ class AuthController extends Controller
             //dd(round($todayreceived));
 
             $totalbooking = Brtabookings::count();
+            $totaldelevared = Brtabookings::where('booking_status','Delivered')->count();
             $todaybooking = Brtabookings::whereDate('created_at', Carbon::today())->count();
             $this_week_booking = Brtabookings::where('created_at', '>', $weekStartDate)->where('created_at', '<', $weekEndDate)->count();
             $last_week_booked = Brtabookings::where('created_at', '<', $weekStartDate)->where('created_at', '>', $subweekStartDate)->count();
-            $undelivered = $totalreceived - $totalbooking;
+            $undelivered = $totalreceived - $totaldelevared;
             //dd($undelivered);
             // $totaldelivered = Brtabookings::count();
 
-            return view('backend.dashboard.index',compact('totalreceived','todayreceived','this_week_data','last_week','totalbooking','todaybooking','this_week_booking','last_week_booked','undelivered'));
+            return view('backend.dashboard.index',compact('totalreceived','todayreceived','this_week_data','last_week','totalbooking','todaybooking','this_week_booking','last_week_booked','undelivered','totaldelevared'));
 
         }
   

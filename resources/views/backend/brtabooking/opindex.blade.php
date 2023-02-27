@@ -3,7 +3,9 @@
 @section('content')
 
 <div class="content">
-  <div class="container" style="margin-top:10px;">
+  <div class="container">
+  <div class="card">
+            <div class="card-header">
     @if(session('success'))
         <div class="alert alert-success">
             <p>{{session('success')}}</p>
@@ -11,45 +13,38 @@
     @endif
 
 
-    <table border="0" cellspacing="5" cellpadding="5">
+    <!-- <table border="0" cellspacing="5" cellpadding="5">
         <tbody><tr>
             <td>Start date:</td>
             <td><input type="text" id="min" name="min"></td> <span style="margin-left:5px;"></span>
             <td>End date:</td>
             <td><input type="text" id="max" name="max"></td>
         </tr>
-        <!-- <tr>
+        <tr>
             <td>Maximum date:</td>
             <td><input type="text" id="max" name="max"></td>
-        </tr> -->
+        </tr>
     </tbody></table>
-    <br>
+    <br> -->
     <table id="example" class="display nowrap" style="width:100%">
         <thead>
             <tr>
                 <th>SI</th>
-                <th>Total Received</th>
-                <th>Supporting Document</th>
-                <th>Date&Time</th>
-                <!-- <th>Time</th> -->
-                <!-- <th>Action</th> -->
+                <th>Booking ID</th>
+                <th>Driving License ID</th>                
+                <th>Status</th>
+                <th>Date & Time</th>
+                
             </tr>
         </thead>
         <tbody>
-          @foreach($brtas as $k => $brta)
+          @foreach($brtabooks as $k => $brtabook)
             <tr>
                 <td>{{++$k}}</td>
-                <td>{{$brta->total_process}}</td>
-                <td><img src="{{asset('img/PDF.webp')}}" alt="" height="30px" width="25px"><a href="{{ asset('uploads/posts').'/'.$brta->total_deliver }}" target="_blank"> View</a></td>
-                <td>{{($brta->created_at)->format('F j, Y, g:i a')}}</td>
-                <!-- <td>{{($brta->created_at)->format('H-m-s')}}</td> -->
-                <!-- <td>
-                    <form onsubmit="return confirm('Are you sure?')" action="/brta_status/delete/{{$brta->id}}" method="POST" style="display: inline-block;">
-                        @csrf
-                        @method('delete')          
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </td> -->
+                <td>{{$brtabook->barcode}}</td>
+                <td>{{$brtabook->drivingLicenseNo}}</td>             
+                <td>{{$brtabook->booking_status}}</td>             
+                <td>{{($brtabook->created_at)->format('F j, Y, g:i a')}}</td>             
             </tr> 
           @endforeach           
         </tbody>
@@ -71,6 +66,8 @@
 
 
   </div>
+</div>
+</div>
 </div>
     
 @endsection

@@ -50,6 +50,8 @@ class OperatorController extends Controller
      */
     public function show($id)
     {
+        //dd($id);
+
         Paginator::useBootstrap();
         $users = User::orderBy('id','DESC')->where('is_admin', $id)->paginate(10);
         return view('backend.operator.index',compact('users'));

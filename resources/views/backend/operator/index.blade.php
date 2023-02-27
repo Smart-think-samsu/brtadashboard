@@ -32,17 +32,21 @@
                         <td scope="row">{{ ++$key }}</td>
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
-                        <td>{{$user->role}}</td>
+                        <td>{{$user->user_id}}</td>
                         <th class="text-center">
+                        <a class="btn btn-sm btn-success" href="{{ route('adminuser.edit', $user->user_id) }}">
+                            <i class="fa fa-eye"></i>
+                        </a>
+
                             <!-- <a href="#">
                                 <i class="mdi mdi-open-in-new"></i>
                             </a> -->
 
-                            <form onsubmit="return confirm('Are you sure?')" action="/adminuser/delete/{{$user->id}}" method="POST" style="display: inline-block;">
+                            <!-- <form onsubmit="return confirm('Are you sure?')" action="/adminuser/delete/{{$user->id}}" method="POST" style="display: inline-block;">
                                 @csrf
                                 @method('delete')          
                                 <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+                            </form> -->
                         </th>
                     </tr>
                 @endforeach

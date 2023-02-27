@@ -54,10 +54,10 @@
 
                     <div class="form-group col-md-6 ">
                         <label for="sel1" class="form-label">Select Role (select one):</label>
-                        <select class="form-control" id="sel1" name="sellist1">
+                        <select class="form-control" id="sel1" name="role_id">
                             <option readonly>----- Select Role ----</option>
                             @foreach($roles as $role)
-                            <option name="role_id" value = "{{$role->id}}">{{$role->name}}</option>
+                            <option value = "{{$role->id}}">{{$role->name}}</option>
                             @endforeach
                         </select>
 

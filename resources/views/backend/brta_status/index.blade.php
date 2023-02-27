@@ -30,8 +30,8 @@
                 <th>SI</th>
                 <th>Total Received</th>
                 <th>Supporting Document</th>
-                <th>Date</th>
-                <th>Time</th>
+                <th>Date&Time</th>
+                <!-- <th>Time</th> -->
                 <!-- <th>Action</th> -->
             </tr>
         </thead>
@@ -40,9 +40,9 @@
             <tr>
                 <td>{{++$k}}</td>
                 <td>{{$brta->total_process}}</td>
-                <td><img src="{{asset('img/PDF.webp')}}" alt="" height="30px" width="25px"><a href="{{ asset('uploads/posts').'/'.$brta->total_deliver }}" download> Download</a></td>
-                <td>{{($brta->created_at)->format('Y-m-d')}}</td>
-                <td>{{($brta->created_at)->format('H-m-s')}}</td>
+                <td><img src="{{asset('img/PDF.webp')}}" alt="" height="30px" width="25px"><a href="{{ asset('uploads/posts').'/'.$brta->total_deliver }}" target="_blank"> View</a></td>
+                <td>{{($brta->created_at)->format('F j, Y, g:i a')}}</td>
+                <!-- <td>{{($brta->created_at)->format('H-m-s')}}</td> -->
                 <!-- <td>jjjj</td> -->
             </tr> 
           @endforeach           
@@ -68,3 +68,48 @@
 </div>
     
 @endsection
+
+@push('script')
+<script>
+var minDate, maxDate;
+ 
+ // Custom filtering function which will search data in column four between two values
+ $.fn.dataTable.ext.search.push(
+     function( settings, data, dataIndex ) {
+         var min = minDate.val();
+         var max = maxDate.val();
+         var date = new Date( data[4] );
+  
+         if (
+             ( min === null && max === null ) ||
+             ( min === null && date <= max ) ||
+             ( min <= date   && max === null ) ||
+             ( min <= date   && date <= max )
+         ) {
+             return true;
+         }
+         return false;
+     }
+ );
+  
+ $(document).ready(function() {
+     // Create date inputs
+     minDate = new DateTime($('#min'), {
+         format: 'MMMM Do YYYY'
+     });
+     maxDate = new DateTime($('#max'), {
+         format: 'MMMM Do YYYY'
+     });
+  
+     // DataTables initialisation
+     var table = $('#example').DataTable();
+  
+     // Refilter the table
+     $('#min, #max').on('change', function () {
+         table.draw();
+     });
+ });
+
+
+</script>   
+@endpush

@@ -42,7 +42,7 @@
                     <div class="card card-default mb-0">
                         <div class="card-header pb-0">
                             <div class="app-brand w-100 d-flex justify-content-center border-bottom-0">
-                                <a class="w-auto pl-0" href="/index.html">
+                                <a class="w-auto pl-0" href="{{url('/')}}">
                                 <img src="{{asset('backend/images/logo.png')}}" alt="Mono">
                                 <!-- <span class="brand-name text-dark">POST OFFICE</span> -->
                                 </a>
@@ -85,8 +85,10 @@
                                 @endif -->
 
                                 </div>
-
-                                <button type="submit" class="btn btn-primary btn-pill mb-4">Sign In</button>
+                                <div class="col-md-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-pill mb-4" style="margin-bottom: 0.5rem !important;">Sign In</button>
+                                </div>
+                                
 
                                 <!-- <p>Don't have an account yet ?
                                 <a class="text-blue" href="{{ route('admin.register') }}">Sign Up</a>

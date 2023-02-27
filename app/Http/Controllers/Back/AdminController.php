@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Brtabookings;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
@@ -80,9 +82,11 @@ class AdminController extends Controller
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function show(Admin $admin)
+    public function show($id)
     {
-        //
+        $user = User::find($id);
+        //dd($user);
+        return view('backend.users.user_profile',compact('user'));
     }
 
     /**
@@ -93,7 +97,11 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        return "connection okk";
+        $date = Carbon::now()->format('Y-m-d 00:00:00');
+        //dd($date);
+        $brtabooks = Brtabookings::where('user_id',$id)->whereDate('created_at', $date)->get();
+        //dd($brtabooks);
+        return view('backend.brtabooking.opindex',compact('brtabooks'));
     }
 
     /**

@@ -11,12 +11,12 @@
         <div class="sidebar-left" data-simplebar style="height: 100%;">
             <!-- sidebar menu -->
             <ul class="nav sidebar-inner" id="sidebar-menu">            
-                <!-- <li class="active">
-                    <a class="sidenav-item-link" href="index.html">
+                <li class="active">
+                    <a class="sidenav-item-link" href="{{url('dashboard')}}">
                     <i class="mdi mdi-briefcase-account-outline"></i>
                     <span class="nav-text">Business Dashboard</span>
                     </a>
-                </li> -->
+                </li>
 
                 <!-- <li>
                     <a class="sidenav-item-link" href="#">

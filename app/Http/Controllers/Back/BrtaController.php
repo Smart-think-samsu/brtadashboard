@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Brtastatus;
 use Auth;
+use Carbon\Carbon;
 
 
 class BrtaController extends Controller
@@ -60,28 +61,41 @@ class BrtaController extends Controller
         $validatedData = $request->validate([
             'total_process' => ['required'],
             'total_deliver' => ['required'],
-        ]);     
-        $user = \Auth::user();
-        $brta = new Brtastatus();
-        $brta->user_id = $user->id;
-        $brta->total_process = $request->total_process;
-        // $brta->total_deliver = $request->total_deliver;
+        ]);  
 
-            // dd($request->all());        
-    
-            if($request->hasFile('total_deliver'))
-            {
-                $imagePost = 'IMAGE-POST'.time().$request->file('total_deliver')->getClientOriginalName();
-                //dd($imagePost);
-                $filee = $request->total_deliver;
-                // dd($filee);
-                $fileName = $imagePost;
-                $filee->move('uploads/posts',$fileName);
-                $brta->total_deliver = $fileName;
-                $brta->save();
-            }
-        $brta->save();
-        return redirect()->route('brta_status.index')->with('success', 'Brta status SuccessFully Created');
+
+        $date = Carbon::now()->format('Y-m-d 00:00:00');
+        
+        $chack_date = Brtastatus::whereDate('created_at', $date)->count();
+        //dd($chack_date);
+        if($chack_date == 0){
+
+            $user = \Auth::user();
+            $brta = new Brtastatus();
+            $brta->user_id = $user->id;
+            $brta->total_process = $request->total_process;
+            // $brta->total_deliver = $request->total_deliver;
+
+                // dd($request->all());        
+        
+                if($request->hasFile('total_deliver'))
+                {
+                    $imagePost = 'IMAGE-POST'.time().$request->file('total_deliver')->getClientOriginalName();
+                    //dd($imagePost);
+                    $filee = $request->total_deliver;
+                    // dd($filee);
+                    $fileName = $imagePost;
+                    $filee->move('uploads/posts',$fileName);
+                    $brta->total_deliver = $fileName;
+                    $brta->save();
+                }
+            $brta->save();
+            return redirect()->route('brta_status.index')->with('success', 'Brta status SuccessFully Created');
+
+        }
+        else{
+            return redirect()->back()->with('success', 'Today you are Already submited');
+        }
 
     }
 

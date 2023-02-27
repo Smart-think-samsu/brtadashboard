@@ -7,6 +7,7 @@ use App\Http\Controllers\Back\RoleController;
 use App\Http\Controllers\Back\PermissionController;
 use App\Http\Controllers\Back\OperatorController;
 use App\Http\Controllers\Back\EpassportController;
+use App\Http\Controllers\Back\ReportController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AuthController;
@@ -61,13 +62,22 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
+
 Route::group(['middleware' => ['auth']], function() { 
     Route::resource('/adminuser', AdminController::class);
     Route::delete('/adminuser/delete/{id}', [AdminController::class,'destroy']);     
     Route::resource('/brta_status', BrtaController::class); 
     Route::delete('/brta_status/delete/{id}', [BrtaController::class,'destroy']); 
+
     Route::get('/brta_status_back', [BrtaController::class,'backindex'])->name('brta_status_back');
+    Route::get('/users/{id}', [BrtaController::class,'show'])->name('users.show');
+    
     Route::resource('/brta_booking_status', BrtabookingController::class); 
+
+    // ================================Report Controller ==================================================
+    Route::get('brtabooking/report', [ReportController::class,'brtabookingreport'])->name('brtabooking.report');
+    Route::get('/brtabooking/datereport/{date}', [ReportController::class,'brtabookindategreport'])->name('brtabooking.datereport');
+    
 
 });
 
@@ -77,6 +87,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('/operator', OperatorController::class);
     Route::get('role-permission/{id}',[PermissionController::class,'index'])->name('role-permission');
     Route::post('store/{id}',[PermissionController::class,'store'])->name('role-store');
+
 
 });
 

@@ -29,7 +29,8 @@
                 @foreach($users as $key => $user)
                     <tr>
                         
-                        <td scope="row">{{ ++$key }}</td>
+                        <!-- <td scope="row">{{ ++$key }}</td> -->
+                        <td scope="row">{{ $user->id }}</td>
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->role}}</td>

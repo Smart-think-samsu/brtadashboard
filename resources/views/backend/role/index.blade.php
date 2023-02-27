@@ -25,6 +25,7 @@
                 <tr>
                     <td>{{++$k}}</td>
                     <td>{{$role->name}}</td>
+                    <!-- <td>{{$role->id}}</td> -->
                     <td>{{$role->slug}}</td>
                     <td>
                         <a href="{{Route('role-permission',$role->id)}}" class="btn btn-sm btn-outline--primary">
