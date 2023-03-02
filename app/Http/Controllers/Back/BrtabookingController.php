@@ -60,6 +60,7 @@ class BrtabookingController extends Controller
         ini_set('max_execution_time', 0);
 
         $bookingdatas = Brtabookings::where('booking_status','Booked')->get();
+        //dd($bookingdatas);
         //$bookingdatas = Brtabookings::whereBetween(DB::raw('(id)'), ['18', '20'])->get();
         //dd($bookingdatas);
         //$mm = ($bookingdatas['0']['user_id']);

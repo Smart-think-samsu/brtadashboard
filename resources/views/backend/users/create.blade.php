@@ -53,31 +53,32 @@
                     </div>
 
                     <div class="form-group col-md-6 ">
-                        <label for="sel1" class="form-label">Select Role (select one):</label>
+                        <!-- <label for="sel1" class="form-label">Select Role (select one):</label> -->
                         <select class="form-control" id="sel1" name="role_id">
                             <option readonly>----- Select Role ----</option>
                             @foreach($roles as $role)
                             <option value = "{{$role->id}}">{{$role->name}}</option>
                             @endforeach
-                        </select>
-
-                        <!-- <div class="form-check">
-                            <input type="radio" class="form-check-input" name="optradio" value="1">
-                            <label class="form-check-label" for="radio1">Admin</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" name="optradio" value="0">
-                            <label class="form-check-label" for="radio2">User</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" name="optradio" value="3">
-                            <label class="form-check-label" for="radio2">Operator</label> 
-                        </div> -->
+                        </select>                      
 
                     </div>
                     <div class="form-group col-md-6 mb-4">
                         <input type="text" class="form-control input-lg" name="phone" aria-describedby="emailHelp" placeholder="Phone Number">
-                    </div>                         
+                    </div>    
+                    <div class="form-group col-md-6 ">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="is_admin" value="1">
+                            <label class="form-check-label" for="inlineRadio1">Dashboard</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="is_admin" value="3">
+                            <label class="form-check-label" for="inlineRadio2">BRTA OP</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="is_admin" value="4">
+                            <label class="form-check-label" for="inlineRadio3">Passport OP</label>
+                        </div>
+                    </div>                                         
                     <div class="col-md-12">                     
                         <button type="submit" class="btn btn-primary btn-pill mb-4">Sign Up</button>
                     </div>

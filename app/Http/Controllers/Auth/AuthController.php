@@ -101,8 +101,11 @@ class AuthController extends Controller
      */
     public function dashboard()
     {
-        $user = \Auth::user();
+        //return "connceion okkkkk ";
+        // $user = \Auth::user();
+        // dd($user);
         //return "THIS SECTION";
+        
         if(Auth::check()){
             // Total received calculation
             $totalreceived = Brtastatus::sum('total_process');        

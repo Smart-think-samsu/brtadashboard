@@ -16,45 +16,43 @@ class BookingController extends Controller
 {
     public function operatorlogin(Request $request)
     {
-        //return $request;
+        //return $request;      
 
-
-        //$user = \Auth::user();
-        //dd($request);
         $request->validate([
             'email' => 'required',
             'password' => 'required',
+            // 'role_id' => 'required',
         ]);
-
-        // $user = User::where('email','=',$request->email)->first();
-
-        // return $user;
-
-   
-        $credentials = $request->only('email', 'password');
+ 
+        $credentials = $request->only('email', 'password');       
         if (Auth::attempt($credentials)) {
            $user = \Auth::user();
+           //return $user->is_admin;
+           if($request->role_id == $user->is_admin){
+                return response()->json([
+                    "status_code"=>"200",
+                    "status"=>"Success", 
+                    "name"=>$user["name"],
+                    "user_id"=>$user["user_id"],
+                    "user_password"=>$user["user_password"],
+                    "user_group"=>$user["user_group"],
+                    "hnddevice"=>$user["hnddevice"],
+                    "email"=>$user["email"],
+                    "bar_user_id"=>$user["bar_user_id"],
+                    "bar_user_pass"=>$user["bar_user_pass"],
+                    "barcode_qty"=>$user["barcode_qty"],
+                    "barcode_type"=>$user["barcode_type"],
+                    "created_at"=>$user["created_at"],
+                    "updated_at"=>$user["updated_at"]           
+                ]);
+           }return response()->json([
+            "status_code"=>"404",
+            "status"=>"You are not a valid operator",                    
+            ]); 
+                      
 
-            return response()->json([
-                "status_code"=>"200",
-                "status"=>"Success", 
-                "name"=>$user["name"],
-                "user_id"=>$user["user_id"],
-                "user_password"=>$user["user_password"],
-                "user_group"=>$user["user_group"],
-                "hnddevice"=>$user["hnddevice"],
-                "email"=>$user["email"],
-                "bar_user_id"=>$user["bar_user_id"],
-                "bar_user_pass"=>$user["bar_user_pass"],
-                "barcode_qty"=>$user["barcode_qty"],
-                "barcode_type"=>$user["barcode_type"],
-                "created_at"=>$user["created_at"],
-                "updated_at"=>$user["updated_at"]           
-            ]);          
-
-        //return \Auth::user();
-            
-            // return redirect()->intended('dashboard')->withSuccess('You have Successfully loggedin');
+                //return \Auth::user();                
+                // return redirect()->intended('dashboard')->withSuccess('You have Successfully loggedin');
         }
         return response()->json([
             "status_code"=>"404",

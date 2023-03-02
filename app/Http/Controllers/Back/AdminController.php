@@ -69,7 +69,7 @@ class AdminController extends Controller
             'barcode_type' => $request['barcode_type'],
             'password' => Hash::make($request['password']),
             'is_email_verified' =>'1',
-            'is_admin' =>'1',
+            'is_admin' => $request['is_admin'],
             'role_id' => $request['role_id'],
         ]);
         return redirect('adminuser')

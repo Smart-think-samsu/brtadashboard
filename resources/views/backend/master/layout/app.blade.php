@@ -58,10 +58,10 @@
 
 
 <body class="navbar-fixed sidebar-fixed" id="body">
-  <script>
+  <!-- <script>
     NProgress.configure({ showSpinner: false });
     NProgress.start();
-  </script>
+  </script> -->
 
     
   <div id="toaster"></div>
@@ -390,7 +390,7 @@
                   <img src="{{asset('backend/images/user/user-xs-01.jpg')}}" class="user-image rounded-circle" alt="User Image" />
                   <span class="d-none d-lg-inline-block">{{Auth::user()->name}}</span>
                 </button>
-                @include('backend/master/include/rightsidebar');
+                @include('backend/master/include/rightsidebar')
               </li>
             </ul>
           </div>
