@@ -116,5 +116,30 @@ return [
         'edit' => false,
         'delete' => false,
     ],
+
+    [
+        'title' =>  'e-passport received',
+        'menu_name' => 'e-passport-received',
+        'create' => false,
+        'view' => false,
+        'edit' => false,
+        'delete' => false,
+    ],
+    [
+        'title' =>  ' ↳ Manage',
+        'menu_name' => 'manage',
+        'create' => false,
+        'view' => false,
+        'edit' => false,
+        'delete' => false,
+    ],
+    [
+        'title' =>  ' ↳ Create',
+        'menu_name' => 'create',
+        'create' => false,
+        'view' => false,
+        'edit' => false,
+        'delete' => false,
+    ],
     
 ];

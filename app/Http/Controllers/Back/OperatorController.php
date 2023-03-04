@@ -65,7 +65,9 @@ class OperatorController extends Controller
      */
     public function edit($id)
     {
-        //
+        Paginator::useBootstrap();
+        $users = User::orderBy('id','DESC')->where('is_admin', $id)->paginate(10);
+        return view('backend.operator.passindex',compact('users'));
     }
 
     /**

@@ -130,7 +130,7 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                         aria-expanded="false" aria-controls="operator"><i class="mdi mdi-chart-line"></i>
                         <span class="nav-text">Operator Management</span> <b class="caret"></b>
                     </a>
-                    <ul  class="collapse"  id="operator">
+                    <ul  class="collapse" id="operator">
                         <div class="sub-menu">
                             @if (in_array('all-operator', $rolePermission))                          
                             <li>
@@ -144,7 +144,7 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                             @endif
                             @if (in_array('passport-operator', $rolePermission))     
                             <li>
-                                <a href="{{Route('operator.show','4')}}">Passport Operator</a>
+                                <a href="{{Route('operator.edit','4')}}">Passport Operator</a>
                             </li>
                             @endif                               
                         </div>
@@ -178,8 +178,16 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                 @endif
 
                 <!-- ==================================== PASSPORT SECTION =================================== -->
-
                 @if (in_array('passport-management', $rolePermission))
+                <li>
+                    <a class="sidenav-item-link" href="{{Route('epassport.index')}}">
+                    <i class="mdi mdi-wechat"></i>
+                    <span class="nav-text">Passport Management</span>
+                    </a>
+                </li>   
+                @endif         
+
+                <!-- @if (in_array('passport-management', $rolePermission))
                 <li  class="has-sub" >
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#passport"
                         aria-expanded="false" aria-controls="passport"><i class="mdi mdi-chart-line"></i>
@@ -192,28 +200,51 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                                 <a href="{{Route('epassport.index')}}">All Passport</a>
                             </li>
                             @endif
-                            <!-- @if (in_array('create-role', $rolePermission))       -->
-                            <!-- <li>
+                            @if (in_array('create-role', $rolePermission))      
+                            <li>
                                 <a href="{{Route('role_add.create')}}">Create Role</a>
-                            </li> -->
-                            <!-- @endif                                -->
+                            </li>
+                            @endif                               
                         </div>
                     </ul>
                 </li>
-                @endif
+                @endif -->
 
 
 
                 <!-- <li class="section-title">
                     Apps
                 </li> -->
-                <!-- <li>
-                    <a class="sidenav-item-link" href="#">
-                    <i class="mdi mdi-wechat"></i>
-                    <span class="nav-text">Roles</span>
+                @if (in_array('e-passport-received', $rolePermission))
+                <li  class="has-sub" >
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#receivedpassport"
+                        aria-expanded="false" aria-controls="receivedpassport"><i class="mdi mdi-chart-line"></i>
+                        <span class="nav-text">e-Passport Received</span> <b class="caret"></b>
                     </a>
-                </li>             -->
-                <!--<li>
+                    <ul  class="collapse"  id="receivedpassport">
+                        <div class="sub-menu">
+                            @if (in_array('manage', $rolePermission))
+                            <li>
+                                <a href="{{Route('epass_received.index')}}">Manage</a>
+                            </li>
+                            @endif
+                            @if (in_array('create', $rolePermission))
+                            <li>
+                                <a href="{{Route('epass_received.create')}}">Create</a>
+                            </li>
+                            @endif
+                        </div>
+                    </ul>
+                </li>
+                @endif
+
+                <!-- <li>
+                    <a class="sidenav-item-link" href="{{Route('epass_received.create')}}">
+                    <i class="mdi mdi-wechat"></i>
+                    <span class="nav-text">e-Passport Received</span>
+                    </a>
+                </li> -->
+                <!-- <li>
                     <a class="sidenav-item-link" href="contacts.html">
                     <i class="mdi mdi-phone"></i>
                     <span class="nav-text">Contacts</span>

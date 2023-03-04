@@ -7,6 +7,7 @@ use App\Http\Controllers\Back\RoleController;
 use App\Http\Controllers\Back\PermissionController;
 use App\Http\Controllers\Back\OperatorController;
 use App\Http\Controllers\Back\EpassportController;
+use App\Http\Controllers\Back\EpassreceivedController;
 use App\Http\Controllers\Back\ReportController;
 
 use App\Http\Controllers\HomeController;
@@ -78,6 +79,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('brtabooking/report', [ReportController::class,'brtabookingreport'])->name('brtabooking.report');
     Route::get('/brtabooking/datereport/{date}', [ReportController::class,'brtabookindategreport'])->name('brtabooking.datereport');
     
+    // ============================Epassport Route ==================================
+    Route::resource('/epassport_show', EpassportController::class);
+    Route::resource('/epass_received', EpassreceivedController::class); 
 
 });
 

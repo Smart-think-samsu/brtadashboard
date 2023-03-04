@@ -53,6 +53,13 @@ class EpassportController extends Controller
         //     'email' => 'required|email',
         //     'password' => 'required|min:8',
         // ]);
+        // =========insurance id make============
+        // $in_date = Carbon::now()->format('Y-m-d 00:00:00');
+        // $in_id = Epassport::whereDate('created_at', $in_date)->count();
+        // $insurance_m_id = ++$in_id;      
+        // $insurance_id = 'IN000'.$insurance_m_id;
+        // return $insurance_id;
+
   
         $epassport = Epassport::create([
             'user_id' => $request->user_id,
@@ -195,7 +202,44 @@ class EpassportController extends Controller
      */
     public function create()
     {
-        //
+        ini_set('max_execution_time', 0);
+
+        $bookingdatas = Epassport::where('booking_status','Booked')->get();
+        //dd($bookingdatas);
+        //$bookingdatas = Brtabookings::whereBetween(DB::raw('(id)'), ['18', '20'])->get();
+        //dd($bookingdatas);
+        //$mm = ($bookingdatas['0']['user_id']);
+        //dd($mm);
+        $data = Http::post('https://www.bpodms.gov.bd/app_dommail_internal_api/public/ws/login', [
+            'user_id' => '1215005',
+            'password' => '007007',
+            'user_group' => 'POSTAGE_POS',
+            'hnddevice' =>0,
+        ]);
+       $post = json_decode($data->getBody()->getContents());
+       //dd($post);
+
+        foreach($bookingdatas as $bookingdata){
+            //dd($bookingdata->barcode);
+            $response = Http::withHeaders(['Authorization'=> 'Bearer '.$post->token])->post('https://www.bpodms.gov.bd/app_dommail_internal_api/public/ws/reportsingle', [
+                'user_id' => '1215005',
+                'user_group' => 'POSTAGE_POS',
+                'my_branch_code' => $post->my_emts_branch_code, //'121500',
+                'item_id' => 'DL781778137BD', //$bookingdata->my_emts_branch_code $bookingdata->barcode,
+                'report_flag' => 'deliver_point_deliver_return_item_search',
+                'hnddevice' =>'0'
+            ]);
+            //dd($response);
+            $chackpost = json_decode($response->getBody()->getContents());
+            //dd($chackpost);
+           if($chackpost->status ==  'Deny: Item ID:'.$bookingdata->item_id.'has already Delivered to Receipient'){
+   
+            //dd($bookingdata->barcode);
+            Brtabookings::where('item_id', $bookingdata->item_id)
+                ->update(['booking_status' => 'Delivered']);
+
+            }           
+        } 
     }
 
     /**
@@ -228,7 +272,11 @@ class EpassportController extends Controller
      */
     public function edit($id)
     {
-        //
+        $date = Carbon::now()->format('Y-m-d 00:00:00');
+        //dd($date);
+        $brtabooks = Epassport::where('user_id',$id)->whereDate('created_at', $date)->get();
+        //dd($brtabooks);
+        return view('backend.epassport.opindex',compact('brtabooks'));
     }
 
     /**

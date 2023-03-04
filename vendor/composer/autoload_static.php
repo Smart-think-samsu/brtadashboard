@@ -538,6 +538,7 @@ class ComposerStaticInitb39900ef9da02dd6559cb8d429b507b6
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\HourlyStatus' => __DIR__ . '/../..' . '/app/Console/Commands/HourlyStatus.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AuthController.php',
@@ -552,9 +553,11 @@ class ComposerStaticInitb39900ef9da02dd6559cb8d429b507b6
         'App\\Http\\Controllers\\Back\\BrtaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Back/BrtaController.php',
         'App\\Http\\Controllers\\Back\\BrtabookingController' => __DIR__ . '/../..' . '/app/Http/Controllers/Back/BrtabookingController.php',
         'App\\Http\\Controllers\\Back\\EpassportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Back/EpassportController.php',
+        'App\\Http\\Controllers\\Back\\EpassreceivedController' => __DIR__ . '/../..' . '/app/Http/Controllers/Back/EpassreceivedController.php',
         'App\\Http\\Controllers\\Back\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Back/LoginController.php',
         'App\\Http\\Controllers\\Back\\OperatorController' => __DIR__ . '/../..' . '/app/Http/Controllers/Back/OperatorController.php',
         'App\\Http\\Controllers\\Back\\PermissionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Back/PermissionController.php',
+        'App\\Http\\Controllers\\Back\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Back/ReportController.php',
         'App\\Http\\Controllers\\Back\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Back/RoleController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
@@ -575,6 +578,8 @@ class ComposerStaticInitb39900ef9da02dd6559cb8d429b507b6
         'App\\Models\\Brtabookings' => __DIR__ . '/../..' . '/app/Models/Brtabookings.php',
         'App\\Models\\Brtastatus' => __DIR__ . '/../..' . '/app/Models/Brtastatus.php',
         'App\\Models\\Epassport' => __DIR__ . '/../..' . '/app/Models/Epassport.php',
+        'App\\Models\\Epassreceiveds' => __DIR__ . '/../..' . '/app/Models/Epassreceiveds.php',
+        'App\\Models\\Image' => __DIR__ . '/../..' . '/app/Models/Image.php',
         'App\\Models\\Operator' => __DIR__ . '/../..' . '/app/Models/Operator.php',
         'App\\Models\\Permission' => __DIR__ . '/../..' . '/app/Models/Permission.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',

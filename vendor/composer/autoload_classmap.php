@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\HourlyStatus' => $baseDir . '/app/Console/Commands/HourlyStatus.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Auth\\AuthController' => $baseDir . '/app/Http/Controllers/Auth/AuthController.php',
@@ -20,9 +21,11 @@ return array(
     'App\\Http\\Controllers\\Back\\BrtaController' => $baseDir . '/app/Http/Controllers/Back/BrtaController.php',
     'App\\Http\\Controllers\\Back\\BrtabookingController' => $baseDir . '/app/Http/Controllers/Back/BrtabookingController.php',
     'App\\Http\\Controllers\\Back\\EpassportController' => $baseDir . '/app/Http/Controllers/Back/EpassportController.php',
+    'App\\Http\\Controllers\\Back\\EpassreceivedController' => $baseDir . '/app/Http/Controllers/Back/EpassreceivedController.php',
     'App\\Http\\Controllers\\Back\\LoginController' => $baseDir . '/app/Http/Controllers/Back/LoginController.php',
     'App\\Http\\Controllers\\Back\\OperatorController' => $baseDir . '/app/Http/Controllers/Back/OperatorController.php',
     'App\\Http\\Controllers\\Back\\PermissionController' => $baseDir . '/app/Http/Controllers/Back/PermissionController.php',
+    'App\\Http\\Controllers\\Back\\ReportController' => $baseDir . '/app/Http/Controllers/Back/ReportController.php',
     'App\\Http\\Controllers\\Back\\RoleController' => $baseDir . '/app/Http/Controllers/Back/RoleController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
@@ -43,6 +46,8 @@ return array(
     'App\\Models\\Brtabookings' => $baseDir . '/app/Models/Brtabookings.php',
     'App\\Models\\Brtastatus' => $baseDir . '/app/Models/Brtastatus.php',
     'App\\Models\\Epassport' => $baseDir . '/app/Models/Epassport.php',
+    'App\\Models\\Epassreceiveds' => $baseDir . '/app/Models/Epassreceiveds.php',
+    'App\\Models\\Image' => $baseDir . '/app/Models/Image.php',
     'App\\Models\\Operator' => $baseDir . '/app/Models/Operator.php',
     'App\\Models\\Permission' => $baseDir . '/app/Models/Permission.php',
     'App\\Models\\Product' => $baseDir . '/app/Models/Product.php',

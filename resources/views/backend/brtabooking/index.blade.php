@@ -3,81 +3,75 @@
 @section('content')
 
 <div class="content">
-  <div class="container">
-    <div class="card">
-        <div class="card-header">
-            @if(session('success'))
-                <div class="alert alert-success">
-                    <p>{{session('success')}}</p>
-                </div>
-            @endif
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        <p>{{session('success')}}</p>
+                    </div>
+                @endif
 
-            <table border="0" cellspacing="5" cellpadding="5">
-        <tbody>
-            <tr>
-                <td>Start date:</td>
-                <td><input type="text" id="min" name="min"></td><span style="margin-left:5px;"></span>
-                <td>End date:</td>
-                <td><input type="text" id="max" name="max"></td>
-                
-            </tr>
-
-            
-    </tbody></table>
-    <br>
-    <table id="example" class="display nowrap" style="width:100%">
-        <thead>
-            <tr>
-                <th>SI</th>
-                <th>DrivingLicenseNo</th>
-                <th>Name</th>
-                <th>Booking ID</th>
-                <th>Date$Time</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach($bookinginfos as $k => $bookinginfo)
-            <tr>
-                <td>{{++$k}}</td>
-                <!-- <td>{{$bookinginfo->id}}</td> -->
-                <td>{{$bookinginfo->drivingLicenseNo}}</td>
-                <td>{{$bookinginfo->name}}</td>
-                <!-- <td>{{$bookinginfo->fatherName}}</td> -->
-                <td>{{$bookinginfo->barcode}}</td>  
-                <td>{{($bookinginfo->created_at)->format('Y-m-j g:i a')}}</td>                
-                <td>{{$bookinginfo->booking_status}}</td>             
+                <table border="0" cellspacing="5" cellpadding="5">
+                    <tbody>
+                        <tr>
+                            <td>Start date:</td>
+                            <td><input type="text" id="min" name="min"></td><span style="margin-left:5px;"> </span>
+                            <td>End date:</td>
+                            <td><input type="text" id="max" name="max"></td>                
+                        </tr>            
+                    </tbody>
+                </table>
+                <br>
+                <table id="example" class="display nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>SI</th>
+                            <th>DrivingLicenseNo</th>
+                            <th>Name</th>
+                            <th>Booking ID</th>
+                            <th>Date$Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($bookinginfos as $k => $bookinginfo)
+                            <tr>
+                                <td>{{++$k}}</td>
+                                <!-- <td>{{$bookinginfo->id}}</td> -->
+                                <td>{{$bookinginfo->drivingLicenseNo}}</td>
+                                <td>{{$bookinginfo->name}}</td>
+                                <!-- <td>{{$bookinginfo->fatherName}}</td> -->
+                                <td>{{$bookinginfo->barcode}}</td>  
+                                <td>{{($bookinginfo->created_at)->format('Y-m-j g:i a')}}</td>                
+                                <td>{{$bookinginfo->booking_status}}</td>
+                            </tr> 
+                        @endforeach
                         
-                          
-            </tr> 
-          @endforeach     
-            
-            <tr>
-                <td>Donna Snider</td>
-                <td>Customer Support</td>
-                <td>New York</td>
-                <td>27</td>
-                <td>2011-01-25</td>
-                <td>$112,000</td>
-            </tr>
+                        <tr>
+                            <td>Donna Snider</td>
+                            <td>Customer Support</td>
+                            <td>New York</td>
+                            <td>27</td>
+                            <td>2011-01-25</td>
+                            <td>$112,000</td>
+                        </tr>
 
-        </tbody>
-        <!-- <tfoot>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
-        </tfoot> -->
-    </table>
-
-
-</div>
-</div>
-</div>
+                    </tbody>
+                    <!-- <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Office</th>
+                            <th>Age</th>
+                            <th>Start date</th>
+                            <th>Salary</th>
+                        </tr>
+                    </tfoot> -->
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
     

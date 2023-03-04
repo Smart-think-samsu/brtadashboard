@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Models\UserVerify;
 use App\Models\Brtastatus;
 use App\Models\Brtabookings;
+use App\Models\Epassreceiveds;
+use App\Models\Epassport;
 use Hash;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -110,7 +112,8 @@ class AuthController extends Controller
             // Total received calculation
             $totalreceived = Brtastatus::sum('total_process');        
             $todayreceived = Brtastatus::whereDate('created_at', Carbon::today())->sum('total_process');
-            $now = Carbon::now();       
+            $now = Carbon::now();   
+            //dd($now);
             $weekStartDate = $now->copy()->startOfWeek(Carbon::SATURDAY)->format('Y-m-d H-m-s');
             $weekEndDate = $now->copy()->endOfWeek(Carbon::THURSDAY)->format('Y-m-d H-m-s');
             //dd($weekEndDate);
@@ -128,8 +131,22 @@ class AuthController extends Controller
             $undelivered = $totalreceived - $totaldelevared;
             //dd($undelivered);
             // $totaldelivered = Brtabookings::count();
+            //'etotalreceived','etodayreceived','ethis_week_data','elast_week','etotalbooking','etotaldelevared','etodaybooking','ethis_week_booking','elast_week_booked','eundelivered'
 
-            return view('backend.dashboard.index',compact('totalreceived','todayreceived','this_week_data','last_week','totalbooking','todaybooking','this_week_booking','last_week_booked','undelivered','totaldelevared'));
+            $etotalreceived = Epassreceiveds::sum('total_receved');
+            $etodayreceived = Epassreceiveds::whereDate('created_at', Carbon::today())->sum('total_receved');
+            $ethis_week_data = Epassreceiveds::where('created_at', '>', $weekStartDate)->where('created_at', '<', $weekEndDate)->sum('total_receved');
+            $elast_week = Epassreceiveds::where('created_at', '<', $weekStartDate)->where('created_at', '>', $subweekStartDate)->sum('total_receved');
+            
+            $etotalbooking = Epassport::count();
+            $etotaldelevared = Epassport::where('booking_status','Delivered')->count();
+            $etodaybooking = Epassport::whereDate('created_at', Carbon::today())->count();
+            $ethis_week_booking = Epassport::where('created_at', '>', $weekStartDate)->where('created_at', '<', $weekEndDate)->count();
+            $elast_week_booked = Epassport::where('created_at', '<', $weekStartDate)->where('created_at', '>', $subweekStartDate)->count();
+            $eundelivered = $etotalreceived - $etotaldelevared;
+            //dd($eundelivered); 
+
+            return view('backend.dashboard.index',compact('totalreceived','todayreceived','this_week_data','last_week','totalbooking','todaybooking','this_week_booking','last_week_booked','undelivered','totaldelevared','etotalreceived','etodayreceived','ethis_week_data','elast_week','etotalbooking','etotaldelevared','etodaybooking','ethis_week_booking','elast_week_booked','eundelivered'));
 
         }
   
@@ -139,7 +156,7 @@ class AuthController extends Controller
     /**
      * Write code on Method
      *
-     * @return response()
+     * @return response() 
      */
     public function create(array $data)
     {
