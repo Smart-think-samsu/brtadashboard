@@ -46,6 +46,7 @@ class EpassportController extends Controller
         
     }
 
+    
     public function storepassport(Request $request)
     {
         // $this->validate($request, [
@@ -82,11 +83,45 @@ class EpassportController extends Controller
         
     }
 
+    public function pandingpassport(Request $request)
+    {
+
+        $pending_date = Carbon::now();
+        //return $request->booking_status;
+        // $this->validate($request, [
+        //     'name' => 'required|min:4',
+        //     'email' => 'required|email',
+        //     'password' => 'required|min:8',
+        // ]);
+        // =========insurance id make============
+        // $in_date = Carbon::now()->format('Y-m-d 00:00:00');
+        // $in_id = Epassport::whereDate('created_at', $in_date)->count();
+        // $insurance_m_id = ++$in_id;      
+        // $insurance_id = 'IN000'.$insurance_m_id;
+        // return $insurance_id;
+
+  
+        Epassport::where('user_id',$request->user_id)->where('barcode',$request->barcode)->update([        
+
+            'booking_status' => $request->booking_status,            
+            'pending_date' => $pending_date,
+
+        ]);
+        //$epassport = Epassport::where('barcode', $request->item_id)->first();
+        return response()->json([
+            'status_code' => '200',
+            'message'=> 'Success',
+
+        ]);
+        
+    }
+
+
     public function submitpassport(Request $request)
     {    
         //return $request;
         
-        
+        $booking_date = Carbon::now();
 
         Epassport::where('user_id',$request->user_id)->where('barcode',$request->item_id)->update([
             'item_id' => $request->item_id,
@@ -96,6 +131,7 @@ class EpassportController extends Controller
             'price' => $request->price,
             'insured' => $request->insured, 
             'booking_status' => $request->booking_status,
+            'booking_date' => $booking_date,
         ]);
         $epassport = Epassport::where('barcode', $request->item_id)->first();
         return response()->json([
@@ -111,8 +147,8 @@ class EpassportController extends Controller
     public function datewisepassport(Request $request)
     { 
         
-        $epassportdata = Epassport::whereDate('created_at', $request->date)->where('user_id', $request->user_id)->get();      
-       
+        $epassportdata = Epassport::whereDate('pending_date', $request->date)->where('user_id', $request->user_id)->get();      
+       //return $epassportdata;
         return $response = array(
             "status_code"=>"200",
             "status"=>"Success",          

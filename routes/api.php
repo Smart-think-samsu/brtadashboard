@@ -56,6 +56,9 @@ Route::delete('/brtaboolingdelete/{id}', [BrtabookingController::class,'destroy'
 //============================ Epasspost Route API =========================================================== 
 Route::post('/epassportchack',[EpassportController::class, 'chackpassport']);
 Route::post('/epassportstore',[EpassportController::class, 'storepassport']);
+
+Route::post('/epassportpanding',[EpassportController::class, 'pandingpassport']);
+
 Route::post('/epassportsubmit',[EpassportController::class, 'submitpassport']);
 Route::post('/epassportdate',[EpassportController::class, 'datewisepassport']);
 
