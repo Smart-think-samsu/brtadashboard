@@ -39,6 +39,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // =========================Driving licence API Route=======================================================
 Route::post('/brtalicence',[BrtabookingController::class, 'licencestore']);
 Route::post('/brtabooking',[BrtabookingController::class, 'store']);
+Route::post('/brtabookingpending',[BrtabookingController::class, 'storepending']);
 Route::post('/brtabookingsubmit',[BrtabookingController::class, 'brtabookinglicencestore']);
 Route::get('/brtabookinglicencecheck',[BrtabookingController::class, 'bookingcount']);
 Route::get('/brtabookinglicences',[BrtabookingController::class, 'show']);
@@ -56,9 +57,7 @@ Route::delete('/brtaboolingdelete/{id}', [BrtabookingController::class,'destroy'
 //============================ Epasspost Route API =========================================================== 
 Route::post('/epassportchack',[EpassportController::class, 'chackpassport']);
 Route::post('/epassportstore',[EpassportController::class, 'storepassport']);
-
 Route::post('/epassportpanding',[EpassportController::class, 'pandingpassport']);
-
 Route::post('/epassportsubmit',[EpassportController::class, 'submitpassport']);
 Route::post('/epassportdate',[EpassportController::class, 'datewisepassport']);
 

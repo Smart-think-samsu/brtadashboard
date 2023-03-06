@@ -192,7 +192,7 @@ class BrtabookingController extends Controller
                 $brtabookings->district = $request->input('district');
                 $brtabookings->division = $request->input('division');
                 $brtabookings->barcode = $request->input('barcode');
-                $brtabookings->booking_status = 'Pending';        
+                $brtabookings->booking_status = 'Init';        
                 // $brtabookings->deliveryAddress =json_encode($request->deliveryAddress);        
                 $brtabookings->save();
                 $created_at = Brtabookings::where('insurance_id', $insurance_id)->first();
@@ -217,11 +217,35 @@ class BrtabookingController extends Controller
         
     }
 
+    public function storepending(Request $request)
+    {    
+        //return $request;
+        
+        $pending_date = Carbon::now();
+        Brtabookings::where('barcode', $request->barcode)->where('user_id',$request->user_id)->update([
+            'booking_status'=>$request->booking_status,
+            'pending_date' => $pending_date,       
+        ]);
+        
+        return response()->json([
+            'status_code' => '200',
+            'message'=> 'Success',
+
+        ]);
+
+        // return $response = array(
+        //     "status_code"=>"200",
+        //     "status"=>"Success"        
+        // );
+                
+    }
+
+
 
     public function brtabookinglicencestore(Request $request)
     {    
         
-
+        $booking_date = Carbon::now();
         Brtabookings::where('barcode', $request->item_id)->where('user_id',$request->user_id)->update([
             'item_id'=>$request->item_id,
             'total_charge'=>$request->total_charge,
@@ -229,7 +253,8 @@ class BrtabookingController extends Controller
             'vas_type'=>$request->vas_type,
             'price'=>$request->price,
             'insured'=>$request->insured,
-            'booking_status'=>$request->booking_status,        
+            'booking_status'=>$request->booking_status,
+            'booking_date' => $booking_date,        
         ]);
 
         $bookingcount = Brtabookings::count();
@@ -275,7 +300,7 @@ class BrtabookingController extends Controller
     { 
         //return $request;
          
-        $brtadailydatas = Brtabookings::whereDate('created_at', $request->date)->where('user_id', $request->user_id)->get();      
+        $brtadailydatas = Brtabookings::whereDate('pending_date', $request->date)->where('user_id', $request->user_id)->get();      
        
         return $response = array(
             "status_code"=>"200",
