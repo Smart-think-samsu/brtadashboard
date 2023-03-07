@@ -104,16 +104,15 @@
       </div>
 
     <div class="row" style="margin-top:10px;">
-        <div class="col-4 card" >
+        <!-- <div class="col-4 card" >
             <div class="card-header" style="padding-left:22px;">
                 <h5>Received</h5> 
             </div>
             <table class="table">
                 <tbody>
-                    <tr>
-                    
-                    <td style ="padding-left:20px;"><h6> Total</h6> </td>
-                    <td style ="text-align:center;"><h6>{{$etotalreceived}}</h6></td>
+                    <tr>                    
+                      <td style ="padding-left:20px;"><h6> Total</h6> </td>
+                      <td style ="text-align:center;"><h6>{{$etotalreceived}}</h6></td>
                     </tr>
                     <tr>
                     
@@ -132,7 +131,7 @@
                     </tr>
                 </tbody>
             </table>
-        </div>     
+        </div>      -->
 
 
 

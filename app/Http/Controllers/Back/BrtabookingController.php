@@ -58,18 +58,15 @@ class BrtabookingController extends Controller
     public function create()
     {
         ini_set('max_execution_time', 0);
-
-        $bookingdatas = Brtabookings::where('booking_status','Booked')->get();
-        //dd($bookingdatas);
-        //$bookingdatas = Brtabookings::whereBetween(DB::raw('(id)'), ['18', '20'])->get();
-        //dd($bookingdatas);
-        //$mm = ($bookingdatas['0']['user_id']);
-        //dd($mm);
+        $bookingdatas = Brtabookings::where('booking_status','Booked')->get();  
+        // dd($bookingdatas);
+        // $bookingdatas = Brtabookings::whereBetween(DB::raw('(id)'), ['501', '540'])->get();
+        // dd($bookingdatas);
         $data = Http::post('https://www.bpodms.gov.bd/app_dommail_internal_api/public/ws/login', [
             'user_id' => '1215005',
             'password' => '007007',
             'user_group' => 'POSTAGE_POS',
-            'hnddevice' =>0,
+            'hnddevice' =>'990008670634968'
         ]);
        $post = json_decode($data->getBody()->getContents());
        //dd($post);
@@ -79,23 +76,24 @@ class BrtabookingController extends Controller
             $response = Http::withHeaders(['Authorization'=> 'Bearer '.$post->token])->post('https://www.bpodms.gov.bd/app_dommail_internal_api/public/ws/reportsingle', [
                 'user_id' => '1215005',
                 'user_group' => 'POSTAGE_POS',
-                'my_branch_code' => $post->my_emts_branch_code, //'121500',
-                'item_id' => 'DL781778137BD', //$bookingdata->my_emts_branch_code $bookingdata->barcode,
+                'my_branch_code' => $post->my_emts_branch_code,
+                'item_id' => $bookingdata->item_id, 
                 'report_flag' => 'deliver_point_deliver_return_item_search',
-                'hnddevice' =>'0'
+                'hnddevice' =>'990008670634968'
             ]);
             //dd($response);
             $chackpost = json_decode($response->getBody()->getContents());
             //dd($chackpost);
 
-           if($chackpost->status ==  'Deny: Item ID:'.$bookingdata->item_id.' has already Delivered to Receipient'){
+            if($chackpost->status ==  'Deny: Item ID:'.$bookingdata->item_id.' has already Delivered to Receipient'){
    
-            //dd($bookingdata->barcode);
-            Brtabookings::where('item_id', $bookingdata->item_id)
-                ->update(['booking_status' => 'Delivered']);
+                //dd($bookingdata->barcode);
+                Brtabookings::where('item_id', $bookingdata->item_id)
+                    ->update(['booking_status' => 'Delivered']);
 
-            }           
-        }   
+            }       
+        }         
+        return "Status Update Successful";
     }
 
     /**
