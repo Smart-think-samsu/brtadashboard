@@ -323,7 +323,14 @@ class BrtabookingController extends Controller
 
         if($request->date >= '2023-03-06 00:00:00' ){
             //return "milon";
-            $brtadailydatas = Brtabookings::whereDate('pending_date', $request->date)->orwhereDate('booking_date', $request->date)->where('user_id', $request->user_id)->get();
+            $brtadailydatas = Brtabookings::where('user_id', $request->user_id)->where(function($query) use ($request) {
+                $query->whereDate('pending_date', $request->date)
+                            ->orwhereDate('booking_date', $request->date);
+                        })->get();
+
+            // $brtadailydatas = Brtabookings::where('user_id', $request->user_id)->whereDate('pending_date', $request->date)->orwhereDate('booking_date', $request->date)->get();
+
+
         
         }else{
 
