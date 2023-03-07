@@ -106,6 +106,7 @@ class BrtabookingController extends Controller
      */
     public function licencestore(Request $request)
     {
+        //return $request;
 
         $brtabookings = Brtabookings::where('drivingLicenseNo', $request->drivingLicenseNo)->first();      
         //return $brtabookings;
@@ -135,6 +136,8 @@ class BrtabookingController extends Controller
                 "insured"=>$brtabookings["insured"],
                 "booking_status"=>$brtabookings["booking_status"],
                 "created_at"=>$brtabookings["created_at"],
+                "pending_date"=>$brtabookings["pending_date"],
+                "booking_date"=>$brtabookings["booking_date"],
                 "updated_at"=>$brtabookings["updated_at"],                                
                 'token' => $brtabookings->createToken("API TOKEN")->plainTextToken       
             );
@@ -156,13 +159,13 @@ class BrtabookingController extends Controller
         //$header = $request->header('Authorization');
         
         
-        $date = Carbon::now()->format('d');
+        // $date = Carbon::now()->format('d');
 
-        // =========insurance id make============
-        $in_date = Carbon::now()->format('Y-m-d 00:00:00');
-        $in_id = Brtabookings::whereDate('created_at', $in_date)->count();
-        $insurance_m_id = ++$in_id;      
-        $insurance_id = 'IN000'.$insurance_m_id;
+        // // =========insurance id make============
+        // $in_date = Carbon::now()->format('Y-m-d 00:00:00');
+        // $in_id = Brtabookings::whereDate('created_at', $in_date)->count();
+        // $insurance_m_id = ++$in_id;      
+        // $insurance_id = 'IN000'.$insurance_m_id;
 
         //return $insurance_id;
 
@@ -173,13 +176,12 @@ class BrtabookingController extends Controller
         // $insurance_id_check = Brtabookings::where('insurance_id', $insurance_id)->first();
 
 
-        $brtabookchack = Brtabookings::where('drivingLicenseNo', $request->drivingLicenseNo)->first();      
+            $brtabookchack = Brtabookings::where('drivingLicenseNo', $request->drivingLicenseNo)->first();      
         
             if(!$brtabookchack){   
 
                 $brtabookings = new Brtabookings();
-                $brtabookings->user_id = $request->input('user_id');    
-                $brtabookings->insurance_id = $insurance_id;                
+                $brtabookings->user_id = $request->input('user_id');            
                 $brtabookings->drivingLicenseNo = $request->input('drivingLicenseNo');
                 $brtabookings->brtaReferenceNo = $request->input('brtaReferenceNo');
                 $brtabookings->name = $request->input('name');
@@ -192,22 +194,18 @@ class BrtabookingController extends Controller
                 $brtabookings->district = $request->input('district');
                 $brtabookings->division = $request->input('division');
                 $brtabookings->barcode = $request->input('barcode');
-                $brtabookings->booking_status = 'Init';        
-                // $brtabookings->deliveryAddress =json_encode($request->deliveryAddress);        
+                $brtabookings->booking_status = $request->input('booking_status');       
                 $brtabookings->save();
-                $created_at = Brtabookings::where('insurance_id', $insurance_id)->first();
+                $pending_date = Brtabookings::where('drivingLicenseNo', $request->drivingLicenseNo)->first();
                 
                 return $response = array(
 
                     "status_code"=>"200",
                     "status"=>"Success",
-                    "insurance_id"=>$insurance_id,               
-                    "created_at"=>$created_at->created_at            
+                    "insurance_id"=>$pending_date->insurance_id!=0?$pending_date->insurance_id:' ',               
+                    "pending_date"=>$pending_date->pending_date!=0?$pending_date->pending_date:' ',           
                                   
                 );
-
-
-
             }else{
                 return $response = array(
                     "status_code"=>"500",
@@ -220,16 +218,41 @@ class BrtabookingController extends Controller
     public function storepending(Request $request)
     {    
         //return $request;
+
+        $date = Carbon::now()->format('d');
+
+        // =========insurance id make============
+        $in_date = Carbon::now()->format('Y-m-d 00:00:00');
+        $in_id = Brtabookings::whereDate('pending_date', $in_date)->count();
+        $insurance_m_id = ++$in_id;      
+        $insurance_id = 'IN000'.$insurance_m_id;
         
         $pending_date = Carbon::now();
-        Brtabookings::where('barcode', $request->barcode)->where('user_id',$request->user_id)->update([
-            'booking_status'=>$request->booking_status,
-            'pending_date' => $pending_date,       
-        ]);
+        $checkin = Brtabookings::where('barcode', $request->barcode)->where('user_id',$request->user_id)->first();
+        //return $checkin->insurance_id;
+        if($checkin->insurance_id == 0){
+            //return "new in id update";
+            Brtabookings::where('barcode', $request->barcode)->where('user_id',$request->user_id)->update([            
+                'insurance_id'=>$insurance_id,
+                'booking_status'=>$request->booking_status,
+                'pending_date' => $pending_date,       
+            ]);
+        }else{
+            Brtabookings::where('barcode', $request->barcode)->where('user_id',$request->user_id)->update([
+                'booking_status'=>$request->booking_status,
+                'pending_date' => $pending_date,      
+            ]);
+        };
+        //return "data alteady input";
         
+
+        $pending_date = Brtabookings::where('barcode', $request->barcode)->first();
+        //return $pending_date;
         return response()->json([
             'status_code' => '200',
             'message'=> 'Success',
+            "insurance_id"=>$pending_date->insurance_id!=0?$pending_date->insurance_id:' ',
+            "pending_date"=>$pending_date->pending_date!=0?$pending_date->pending_date:' ',  
 
         ]);
 
@@ -298,10 +321,18 @@ class BrtabookingController extends Controller
 
     public function bookingdailydata(Request $request)
     { 
-        //return $request;
-         
-        $brtadailydatas = Brtabookings::whereDate('pending_date', $request->date)->where('user_id', $request->user_id)->get();      
+        //return $request; 
+
+        if($request->date >= '2023-03-06 00:00:00' ){
+            //return "milon";
+            $brtadailydatas = Brtabookings::whereDate('pending_date', $request->date)->orwhereDate('booking_date', $request->date)->where('user_id', $request->user_id)->get();
+        
+        }else{
+
+            $brtadailydatas = Brtabookings::whereDate('created_at', $request->date)->where('user_id', $request->user_id)->get();      
        
+        };
+         
         return $response = array(
             "status_code"=>"200",
             "status"=>"Success",          
