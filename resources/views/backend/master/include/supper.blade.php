@@ -21,7 +21,7 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
             <!-- sidebar menu -->
                 <!-- ======================DASHBOARD SECTION================== -->
             <ul class="nav sidebar-inner" id="sidebar-menu">            
-                <li class="active">
+                <li class="{{ request()->is('dashboard') ? 'active' : ''}}">
                     <a class="sidenav-item-link" href="{{url('dashboard')}}">
                     <i class="mdi mdi-briefcase-account-outline"></i>
                     <span class="nav-text">Dashboard</span>
@@ -29,7 +29,7 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                 </li>
                 <!-- ======================USER SECTION================== -->
                 @if (in_array('user-manage', $rolePermission))
-                <li>
+                <li class="{{ request()->is('adminuser') ? 'active' : ''}}">
                     <a class="sidenav-item-link" href="{{Route('adminuser.index')}}">
                     <i class="mdi mdi-chart-line"></i>
                     <span class="nav-text">User Management</span>
@@ -38,7 +38,7 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                @endif
                 <!-- ======================BRTA STATUS SECTION================== -->
                 @if (in_array('brta-status', $rolePermission))
-                <li>
+                <li class="{{ request()->is('brta_status_back') ? 'active' : ''}}">
                     <a class="sidenav-item-link" href="{{Route('brta_status_back')}}">
                     <i class="mdi mdi-chart-line"></i>
                     <span class="nav-text">BRTA Status</span>
@@ -48,7 +48,7 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                 <!-- ======================BRTA BOOKING STATUS SECTION================== -->
 
                 @if (in_array('brta-booking-status', $rolePermission))
-                <li>
+                <li class="{{ request()->is('brta_booking_status') ? 'active' : ''}}">
                     <a class="sidenav-item-link" href="{{Route('brta_booking_status.index')}}">
                     <i class="mdi mdi-chart-line"></i>
                     <span class="nav-text">BRTA Booking Status</span>
@@ -56,7 +56,7 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                 </li>
                 @endif
                 @if (in_array('booking-report', $rolePermission))     
-                <li>
+                <li class="{{ request()->is('brtabooking/report') ? 'active' : ''}}">
                     <a class="sidenav-item-link" href="{{Route('brtabooking.report')}}">
                     <i class="mdi mdi-chart-line"></i>
                     <span class="nav-text">BRTA Booking Report</span>
@@ -125,15 +125,15 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                 
 
                 @if (in_array('operator-management', $rolePermission))
-                <li  class="has-sub" >
+                <li  class="has-sub {{ request()->is('operator') ? 'active' : ''}}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#operator"
                         aria-expanded="false" aria-controls="operator"><i class="mdi mdi-chart-line"></i>
                         <span class="nav-text">Operator Management</span> <b class="caret"></b>
                     </a>
-                    <ul  class="collapse" id="operator">
+                    <ul  class="collapse {{ request()->is('operator') ? 'show' : ''}}" id="operator">
                         <div class="sub-menu">
                             @if (in_array('all-operator', $rolePermission))                          
-                            <li>
+                            <li class="{{ request()->is('operator') ? 'active' : ''}}">
                                 <a href="{{Route('operator.index')}}">All Operator</a>
                             </li>
                             @endif
@@ -210,18 +210,16 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                 </li>
                 @endif -->
 
-
-
                 <!-- <li class="section-title">
                     Apps
                 </li> -->
-                @if (in_array('e-passport-received', $rolePermission))
+                <!-- @if (in_array('e-passport-received', $rolePermission))
                 <li  class="has-sub" >
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#receivedpassport"
                         aria-expanded="false" aria-controls="receivedpassport"><i class="mdi mdi-chart-line"></i>
                         <span class="nav-text">e-Passport Received</span> <b class="caret"></b>
                     </a>
-                    <ul  class="collapse"  id="receivedpassport">
+                    <ul class="collapse"  id="receivedpassport">
                         <div class="sub-menu">
                             @if (in_array('manage', $rolePermission))
                             <li>
@@ -236,7 +234,7 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                         </div>
                     </ul>
                 </li>
-                @endif
+                @endif -->
 
                 <!-- <li>
                     <a class="sidenav-item-link" href="{{Route('epass_received.create')}}">

@@ -16,6 +16,7 @@ use Hash;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Mail; 
+use DB;
   
 class AuthController extends Controller
 {
@@ -92,7 +93,7 @@ class AuthController extends Controller
               $message->subject('Email Verification Mail');
           });
          
-        return redirect("dashboard")->withSuccess('Great! You have Successfully loggedin');
+        return redirect("dashboard")->withSuccess('Great! You have Successfully login');
     }
     
     /**
@@ -145,6 +146,13 @@ class AuthController extends Controller
             $elast_week_booked = Epassport::where('created_at', '<', $weekStartDate)->where('created_at', '>', $subweekStartDate)->count();
             $eundelivered = $etotalreceived - $etotaldelevared;
             //dd($eundelivered); 
+
+            // $grouped = Epassreceiveds::orderBy('created_at','desc')
+            // ->groupBy(function (Epassreceiveds $item) {
+            //     return $item->created_at->format('Y-m');
+            // });
+
+            // dd($grouped);
 
             return view('backend.dashboard.index',compact('totalreceived','todayreceived','this_week_data','last_week','totalbooking','todaybooking','this_week_booking','last_week_booked','undelivered','totaldelevared','etotalreceived','etodayreceived','ethis_week_data','elast_week','etotalbooking','etotaldelevared','etodaybooking','ethis_week_booking','elast_week_booked','eundelivered'));
 

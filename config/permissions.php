@@ -141,5 +141,67 @@ return [
         'edit' => false,
         'delete' => false,
     ],
+
+    // Dashboard permission
+
+    [
+        'title' =>  'Dashbord status',
+        'menu_name' => 'dashboard-licence-status',
+        'create' => false,
+        'view' => false,
+        'edit' => false,
+        'delete' => false,
+    ],
+
+    [
+        'title' =>  'Licence Received',
+        'menu_name' => 'dashboard-licence-received',
+        'create' => false,
+        'view' => false,
+        'edit' => false,
+        'delete' => false,
+    ],
+    [
+        'title' =>  'Licence Processed',
+        'menu_name' => 'dashboard-licence-processed',
+        'create' => false,
+        'view' => false,
+        'edit' => false,
+        'delete' => false,
+    ],
+    [
+        'title' =>  'Licence Status',
+        'menu_name' => 'dashboard-brta-status',
+        'create' => false,
+        'view' => false,
+        'edit' => false,
+        'delete' => false,
+    ],
+    [
+        'title' =>  'Dashboard e-Passpoet',
+        'menu_name' => 'dashboard-passport-status',
+        'create' => false,
+        'view' => false,
+        'edit' => false,
+        'delete' => false,
+    ],
+    [
+        'title' =>  'e-Passport Processed',
+        'menu_name' => 'dashboard-passport-process',
+        'create' => false,
+        'view' => false,
+        'edit' => false,
+        'delete' => false,
+    ],
+    [
+        'title' =>  'e-Passport Status',
+        'menu_name' => 'dashboard-passport-status',
+        'create' => false,
+        'view' => false,
+        'edit' => false,
+        'delete' => false,
+    ],
+
+
     
 ];
