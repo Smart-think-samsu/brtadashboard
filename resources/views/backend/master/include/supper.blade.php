@@ -185,7 +185,17 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
                     <span class="nav-text">Passport Management</span>
                     </a>
                 </li>   
-                @endif         
+                @endif 
+                
+                <!-- ==================================== INSURANCE REPOTING SECTION ================================== -->
+                @if (in_array('insurance_report', $rolePermission))
+                <li>
+                    <a class="sidenav-item-link" href="{{Route('insurance.report')}}">
+                    <i class="mdi mdi-wechat"></i>
+                    <span class="nav-text">Insurance Report</span>
+                    </a>
+                </li>   
+                @endif 
 
                 <!-- @if (in_array('passport-management', $rolePermission))
                 <li  class="has-sub" >

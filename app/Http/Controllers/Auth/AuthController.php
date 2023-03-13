@@ -144,7 +144,7 @@ class AuthController extends Controller
             $etodaybooking = Epassport::whereDate('created_at', Carbon::today())->count();
             $ethis_week_booking = Epassport::where('created_at', '>', $weekStartDate)->where('created_at', '<', $weekEndDate)->count();
             $elast_week_booked = Epassport::where('created_at', '<', $weekStartDate)->where('created_at', '>', $subweekStartDate)->count();
-            $eundelivered = $etotalreceived - $etotaldelevared;
+            $eundelivered = $etotalbooking - $etotaldelevared;
             //dd($eundelivered); 
 
             // $grouped = Epassreceiveds::orderBy('created_at','desc')

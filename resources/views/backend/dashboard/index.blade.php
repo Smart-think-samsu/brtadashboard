@@ -209,9 +209,8 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
     
     </div>
 
-    <div class="row">
-      <div class="col-12">
-        
+    <!-- <div class="row">
+      <div class="col-12">     
         
         <div class="card card-default">
           <div class="card-header">
@@ -241,7 +240,7 @@ $rolePermission= App\Models\RolePermission::where('role_id', $user->role_id)->pl
       </div>
       
       </div>
-    </div>
+    </div> -->
 
 
 

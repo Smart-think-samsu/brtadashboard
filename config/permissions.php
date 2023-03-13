@@ -201,6 +201,14 @@ return [
         'edit' => false,
         'delete' => false,
     ],
+    [
+        'title' =>  'Insurance Report',
+        'menu_name' => 'insurance_report',
+        'create' => false,
+        'view' => false,
+        'edit' => false,
+        'delete' => false,
+    ],
 
 
     

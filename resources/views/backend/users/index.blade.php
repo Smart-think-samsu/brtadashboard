@@ -33,7 +33,7 @@
                         <!-- <td scope="row">{{ $user->id }}</td> -->
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
-                        <td>{{$user->role}}</td>
+                        <td>{{$user->role->name}}</td>
                         <th class="text-center">
                             <!-- <a href="#">
                                 <i class="mdi mdi-open-in-new"></i>

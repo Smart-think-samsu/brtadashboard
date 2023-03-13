@@ -5,7 +5,7 @@
 <div class="content">
     <div class="card card-default">
         <div class="card-header align-items-center">
-            <h2 class="">BRTA Booking Report List</h2>
+            <h2 class="">BRTA Booking Insurance Report List</h2>
             
             <!-- <a href="{{Route('adminuser.create')}}" class="btn btn-primary btn-pill" type="submit">Add User</a> -->
         </div>
@@ -18,7 +18,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">SI</th>
                     <th scope="col">Date</th>
                     <th scope="col">Total Iteam</th>
                     <th class="text-center">Action</th>
@@ -31,7 +31,7 @@
                         <td>{{$report->date}}</td>
                         <td>{{$report->views}}</td>
                         <td class="text-center">
-                            <a href="{{Route('brtabooking.datereport',$report->date)}}" class="btn btn-primary" target="_blank">
+                            <a href="{{Route('insurance.datereport',$report->date)}}" class="btn btn-primary" target="_blank">
                                 <i class="fa fa-print" aria-hidden="true"></i>
                             </a>
                         </td>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Back\OperatorController;
 use App\Http\Controllers\Back\EpassportController;
 use App\Http\Controllers\Back\EpassreceivedController;
 use App\Http\Controllers\Back\ReportController;
+use App\Http\Controllers\Back\InsuranceController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AuthController;
@@ -30,7 +31,7 @@ use App\Models\Role;
 // ================================ BACKEND ROUTE ==================================
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
-    // return what you want
+    return "All Cache Clear Successful";
 });
 
 // Route::get('/', function () {
@@ -82,6 +83,10 @@ Route::group(['middleware' => ['auth']], function() {
     // ============================Epassport Route ==================================
     Route::resource('/epassport_show', EpassportController::class);
     Route::resource('/epass_received', EpassreceivedController::class); 
+    
+    Route::get('insurance/report', [InsuranceController::class,'report'])->name('insurance.report');
+    Route::get('/insurance/datereport/{date}', [InsuranceController::class,'datereport'])->name('insurance.datereport');
+    
 
 });
 
